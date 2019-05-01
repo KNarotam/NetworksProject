@@ -19,9 +19,14 @@ def send(message = ''):
 # Receive function that will return what is received
 def receive():
     # Receives data from the socket with "buffsize" of 1024
-    rec = s.recv(1024)
+    recMessage = s.recv(1024)
     # Returns the received value as a string
-    return rec
+    return (recMessage)
+
+# Combined function that will send and return the received response from the server
+def combinedSendReceive(message = ''):
+    send(message)
+    return receive()
 
 # Function that will print out the current directory
 def localDirectory(pathName = ''):
@@ -117,8 +122,7 @@ def retrieveFile(fileName = ''):
     newIP, newPort = passive()
     passiveSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     passiveSocket((newIP, newPort))
-    send('RETR '+ fileName)
-    return receive()
+    combinedSendReceive('RETR ' + fileName)
     # using the open function, we will open the file to be uploaded
     # We set the mode to be wb
     # w = open for writing, truncating the file first
@@ -137,4 +141,144 @@ def retrieveFile(fileName = ''):
 
     newFile.close()
 
-pathName = ''
+# Function to list the directory
+def listDirectory():
+    # First we need to enter passive mode
+    newIP, newPort = passive()
+    passiveSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    passiveSocket.connect((newIP, newPort))
+    combinedSendReceive('LIST')
+    # create an empty array that will store the directory
+    directory = []
+
+    # wait 1 second before receiving the directory and printing it out
+    time.sleep(.1)
+    contentOfDirectory = passiveSocket.recv(1024)
+    # decode the conetents of the directory
+    contentOfDirectory = contentOfDirectory.decode()
+    print(contentOfDirectory)
+    # add the contents of the directory to the directory array
+    directory = contentOfDirectory.split('\n')
+    directory = directory[:-1]
+
+    # create two arrays one for the folders and one for the files
+    foldersInDirectory = []
+    filesInDirectory = []
+
+    # Go through every object (folder and file) in directory and add it to the respective array
+    for object in directory:
+        if object[0] == 'd':
+            foldersInDirectory.append(object)
+        else:
+            filesInDirectory.append(object)
+
+    # Categorize all the folders in the directory
+    for counter, tempFolder in enumerate(foldersInDirectory):
+        contentOfDirectory = tempFolder.split(':')
+        tempFolder = contentOfDirectory[0]
+        tmepFolder = tempFolder[3:]
+        foldersInDirectory[counter] = tempFolder
+
+    # Categorize all the files in the directory
+    for counter, tempFile in enumerate(filesInDirectory):
+        contentOfDirectory = tempFile.split(':')
+        tempFile = contentOfDirectory[0]
+        tempFile = tempFile[3:]
+        filesInDirectory[counter] = tempFile
+
+    print(foldersInDirectory)
+    print(filesInDirectory)
+
+    message = ('ABOR')
+    passiveSocket.send(bytes(message + ("\r\n"), "UTF-8"))
+    receive()
+
+###############################################
+
+# Executing the program
+#address = input("Enter the address of the server: ")
+address = "demo.wftpserver.com"
+#address = "test.rebex.net"
+port = 21
+
+s.connect((address, port))
+s.recv(1024)
+
+userName = input("Enter the user name: ")
+combinedSendReceive('USER ' + userName)
+password = input("Enter the password: ")
+combinedSendReceive('PASS ' + password)
+
+# Get current working directory
+pathName = os.getcwd()
+buff = 1024
+
+while True:
+    # clear the command window
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("PWD: Print Remote and Local Directory")
+    print("CWD: Change Directory")
+    print("EXIT: Exit")
+
+    userInput = input("Choose an option: ")
+
+    if userInput == 'PWD':
+        while True:
+            directory = ''
+            print('Remote Directory')
+            message = 'PWD'
+            send(message)
+            directory = s.recv(1024)
+            directory = directory.decode()
+            listDirectory()
+            print('\nLocal Directory')
+            localDirectory(pathName)
+            browseDirectory(pathName)
+            print(input('Hit Enter'))
+            break
+
+    if userInput == 'CWD':
+        while True:
+            print('1) Change local directory')
+            print('2) Change remote directory')
+            print('3) Go to main menu')
+
+            userInputSub = input("Which directory: ")
+
+            if userInputSub == "1":
+                print("Change LOCAL directory")
+                print("Type "'home'" to go to home directory or name of folder")
+                newPathName = input("Input: ")
+
+                if newPathName == "home":
+                    pathName = 'C:\\Users\\knaro\\Documents'
+                else:
+                    pathName = pathName + '\\' + newPathName
+
+                localDirectory(pathName)
+                browseDirectory(pathName)
+                print(input("Press Enter"))
+
+            if userInputSub == "2":
+                print("Change RMEOTE directory")
+                print("Choose to go up one level or into one of the folders")
+                option = input("Input: ")
+
+                if option == "up":
+                    combinedSendReceive('CDUP')
+                else:
+                    combinedSendReceive("CWD " + option)
+
+                listDirectory()
+                print(input("Press Enter"))
+
+            if userInputSub == "3":
+                break
+
+
+    if userInput == 'EXIT':
+        print('Exiting')
+        send('QUIT')
+        break
+
+s.close()
