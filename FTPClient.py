@@ -72,7 +72,7 @@ def sendFile(fileName = ''):
     newIP, newPort = passive()
     passiveSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     passiveSocket.connect((newIP, newPort))
-    send('STOR' + fileName)
+    send('STOR ' + fileName)
     pathOfFile = pathName +'/' + fileName
     # using the open function, open the file and return corresponding object
     # We set the mode to rb:
@@ -121,7 +121,7 @@ def retrieveFile(fileName = ''):
     # First we need to enter passive mode
     newIP, newPort = passive()
     passiveSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    passiveSocket((newIP, newPort))
+    passiveSocket.connect((newIP, newPort))
     combinedSendReceive('RETR ' + fileName)
     # using the open function, we will open the file to be uploaded
     # We set the mode to be wb
@@ -176,7 +176,7 @@ def listDirectory():
     for counter, tempFolder in enumerate(foldersInDirectory):
         contentOfDirectory = tempFolder.split(':')
         tempFolder = contentOfDirectory[0]
-        tmepFolder = tempFolder[3:]
+        tempFolder = tempFolder[3:]
         foldersInDirectory[counter] = tempFolder
 
     # Categorize all the files in the directory
@@ -197,16 +197,20 @@ def listDirectory():
 
 # Executing the program
 #address = input("Enter the address of the server: ")
-address = "demo.wftpserver.com"
+#address = "demo.wftpserver.com"
 #address = "test.rebex.net"
+address = '10.0.0.24'
 port = 21
 
 s.connect((address, port))
 s.recv(1024)
 
-userName = input("Enter the user name: ")
+os.system('cls' if os.name == 'nt' else 'clear')
+#userName = input("Enter the user name: ")
+userName = 'anon'
 combinedSendReceive('USER ' + userName)
-password = input("Enter the password: ")
+#password = input("Enter the password: ")
+password = 'anon'
 combinedSendReceive('PASS ' + password)
 
 # Get current working directory
@@ -216,13 +220,16 @@ buff = 1024
 while True:
     # clear the command window
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("PWD: Print Remote and Local Directory")
-    print("CWD: Change Directory")
+    print("1: Print Remote and Local Directory")
+    print("2: Change Directory")
+    print("3: Receive File")
+    print("4: Send File")
     print("EXIT: Exit")
 
     userInput = input("Choose an option: ")
 
-    if userInput == 'PWD':
+############ Print Local Directory ############
+    if userInput == '1':
         while True:
             directory = ''
             print('Remote Directory')
@@ -230,6 +237,17 @@ while True:
             send(message)
             directory = s.recv(1024)
             directory = directory.decode()
+            temp = directory.split('i')
+            temp = temp[0].split(' ')
+            temp = temp[0]
+
+            if temp == '257':
+                directory = directory.split('"')
+                directory = directory[1]
+                print('"' + directory + '"')
+            else:
+                print('"' + directory + '"')
+            
             listDirectory()
             print('\nLocal Directory')
             localDirectory(pathName)
@@ -237,11 +255,12 @@ while True:
             print(input('Hit Enter'))
             break
 
-    if userInput == 'CWD':
+############ Change Directory ############
+    if userInput == '2':
         while True:
-            print('1) Change local directory')
-            print('2) Change remote directory')
-            print('3) Go to main menu')
+            print('1: Change local directory')
+            print('2: Change remote directory')
+            print('3: Go to main menu')
 
             userInputSub = input("Which directory: ")
 
@@ -251,7 +270,7 @@ while True:
                 newPathName = input("Input: ")
 
                 if newPathName == "home":
-                    pathName = 'C:\\Users\\knaro\\Documents'
+                    pathName = 'C:\\Users\\knaro\\Documents\\GitHub\\NetworksProject'
                 else:
                     pathName = pathName + '\\' + newPathName
 
@@ -260,7 +279,7 @@ while True:
                 print(input("Press Enter"))
 
             if userInputSub == "2":
-                print("Change RMEOTE directory")
+                print("Change REMOTE directory")
                 print("Choose to go up one level or into one of the folders")
                 option = input("Input: ")
 
@@ -275,6 +294,128 @@ while True:
             if userInputSub == "3":
                 break
 
+############ Receive File ############
+
+    if userInput == '3':
+        while True:
+            print("What type of file are you RECEIVING?")
+            print("1: ASCII")
+            print("2: Image")
+            print('3: Go to main menu')
+            userInputSub = input("Which type of file: ")
+
+            if userInputSub == "1":
+                os.path = pathName
+                downloadFile = input("Name of file to be downloaded: ")
+                message = 'TYPE A'
+                send(message)
+
+                while True:
+                    temp = receive()
+                    temp = temp.decode()
+                    temp = temp.split("'")
+                    temp = temp[0].split(' ')
+                    temp = temp[0]
+
+                    if temp == '226':
+                        message = 'ABOR'
+                        combinedSendReceive(message)
+                        receive()
+                        break
+                    else:
+                        break
+
+                retrieveFile(downloadFile)
+                print(input("\nPress Enter"))
+                
+
+            if userInputSub == '2':
+                os.path = pathName
+                downloadFile = input("Name of file to be downloaded: ")
+                message = 'TYPE I'
+                send(message)
+
+                while True:
+                    temp = receive()
+                    temp = temp.decode()
+                    temp = temp.split("'")
+                    temp = temp[0].split(' ')
+                    temp = temp[0]
+
+                    if temp == '226':
+                        message = 'ABOR'
+                        combinedSendReceive(message)
+                        receive()
+                        break
+                    else:
+                        break
+
+                retrieveFile(downloadFile)
+                print(input("\nPress Enter"))
+
+            if userInputSub == "3":
+                break
+                
+
+############ Send File ############
+
+    if userInput == '4':
+        while True:
+            print("What type of file are you SENDING?")
+            print("1: ASCII")
+            print("2: Image")
+            print('3: Go to main menu')
+            
+            userInputSub = input("Which type of file: ")
+
+            if userInputSub == '1':
+                os.path = pathName
+                uploadFile = input("Name of file to be uploaded: ")
+                send('TYPE A')
+
+                while True:
+                    temp = receive()
+                    temp = temp.decode()
+                    temp = temp.split("'")
+                    temp = temp[0].split(' ')
+                    temp = temp[0]
+
+                    if temp == '226':
+                        combinedSendReceive('ABOR')
+                        break
+                    else:
+                        break
+
+                sendFile(uploadFile)
+                print(input("\nPress Enter"))
+                
+
+            if userInputSub == '2':
+                os.path = pathName
+                uploadFile = input("Name of file to be uploaded: ")
+                send('TYPE I')
+
+                while True:
+                    temp = receive()
+                    temp = temp.decode()
+                    temp = temp.split("'")
+                    temp = temp[0].split(' ')
+                    temp = temp[0]
+
+                    if temp == '226':
+                        combinedSendReceive('ABOR')
+                        break
+                    else:
+                        break
+
+                sendFile(uploadFile)
+                print(input("\nPress Enter"))
+                
+            if userInputSub == "3":
+                break
+
+
+############ Exit ############
 
     if userInput == 'EXIT':
         print('Exiting')
