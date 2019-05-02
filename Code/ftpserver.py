@@ -65,19 +65,19 @@ class FTPServerProtocol(threading.Thread):
 
     def setupUserFolder(self, username):
         # Separare base access path from working directory
-        path = self.working_directory + '/' + username
+        path = self.working_directory + '\\' + username
 
         try:
             os.mkdir(path)
         except OSError:
             pass
 
-        path = path.split('/')
+        path = path.split('\\')
         user_path_index = path.index(username)
         base_path = path[:user_path_index]
         working_path = path[user_path_index:]
-        self.base_path = '/'.join(base_path)
-        self.working_directory = '/' + '/'.join(working_path) + '/'
+        self.base_path = '\\'.join(base_path)
+        self.working_directory = '\\' + '\\'.join(working_path) + '\\'
 
     def generatePath(self, base_path='', working_path=''):
         print(base_path + working_path)
@@ -303,8 +303,8 @@ class FTPServerProtocol(threading.Thread):
 
     def CDUP(self, client_command):
         # Changes current working directory to parent directory
-        if self.working_directory != '/' + self.username:
-            self.working_directory = '/' + os.path.abspath(os.path.join(self.base_path + self.working_directory, '..'))
+        if self.working_directory != '\\' + self.username:
+            self.working_directory = '\\' + os.path.abspath(os.path.join(self.base_path + self.working_directory, '..'))
         log('CDUP', self.working_directory)
         self.sendResponse('200 OK.\r\n')
 
@@ -388,7 +388,7 @@ class FTPServerProtocol(threading.Thread):
 
     def RETR(self, filename):
         # Causes server-DTP to transfer a copy of the file, specified in the pathname, to the server- or user-DTP at the other end of the data connection
-        server_path = self.generatePath(self.base_path, filename)
+        server_path = self.generatePath(self.base_path, "\\" + filename)
         log('RETR', server_path)
 
         if not os.path.exists(server_path):
@@ -425,7 +425,7 @@ class FTPServerProtocol(threading.Thread):
             self.sendResponse('530 STOR failed. User is not logged in.\r\n')
             return
 
-        server_path = self.generatePath(self.base_path, filename)
+        server_path = self.generatePath(self.base_path, "\\" + filename)
         log('STOR', server_path)
 
         try:
