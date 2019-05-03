@@ -98,7 +98,9 @@ class FTPServerProtocol(threading.Thread):
         else:
             self.data_socket.send(data.encode('utf-8'))
 
-    #---------------------------------------------------- FTP command functions ----------------------------------------------------#
+    #---------------------------------------------------- FTP COMMANDS ----------------------------------------------------#
+
+    #----------------------------------------------- ACCESS CONTROL COMMANDS -----------------------------------------------#
     
     def USER(self, username):
         # Lets user to set their username
@@ -137,17 +139,44 @@ class FTPServerProtocol(threading.Thread):
             self.authenticated = True
             self.allow_delete = True
 
-    def TYPE(self, type):
-        # Specify file mode to be handled
-        print('TYPE', type)
-        self.type = type
+    def CWD(self, directory_path):
+        # Allows user to change current directory to a new directory on the server
+        server_path = self.base_path + directory_path
+        print('CWD', server_path)
 
-        if self.type == 'I':
-            self.sendResponse('200 Binary file mode.\r\n')
-        elif self.type == 'A':
-            self.sendResponse('200 Ascii file mode.\r\n')
-        else:
-            self.sendResponse('501 Syntax error in parameters or arguments.\r\n')
+        if not os.path.exists(server_path) or not os.path.isdir(server_path):
+            self.sendResponse('550 CWD failed Directory does not exist.\r\n')
+            return
+
+        self.working_directory = directory_path
+
+        self.sendResponse('250 CWD Command successful.\r\n')
+
+    def CDUP(self, client_command):
+        # Changes current working directory to parent directory
+        if self.working_directory != '\\' + self.username:
+            self.working_directory = '\\' + os.path.abspath(os.path.join(self.base_path + self.working_directory, '..'))
+        print('CDUP', self.working_directory)
+        self.sendResponse('200 OK.\r\n')
+
+    def QUIT(self, param):
+        # Connected user logs out and disconnects from server if not transfer in progress
+        print('QUIT', param)
+        self.sendResponse('221 Goodbye.\r\n')
+
+    #---------------------------------------------------------------------- TRANSFER PARAMETER COMMANDS ----------------------------------------------------------------#
+
+    def PORT(self, client_command):
+        # Specify the port to be used for data transmission
+        print("PORT: ", client_command)
+        if self.PASVmode:
+            self.server_socket.close()
+            self.PASVmode = False
+
+        connection_info = client_command[5:].split(',')
+        self.data_socket_address = '.'.join(connection_info[:4])
+        self.data_socket_port = (int(connection_info[4])<<8) + int(connection_info[5])
+        self.sendResponse('200 Get port.\r\n')
 
     def PASV(self, client_command):
         # Makes server-DTP "listen" on a non-default data port to wait for a connection rather than initiate one upon receipt of a transfer command
@@ -160,6 +189,18 @@ class FTPServerProtocol(threading.Thread):
         address, port = self.server_socket.getsockname()
         self.sendResponse('227 Entering Passive Mode (%s,%u,%u).\r\n' %
                 (','.join(address.split('.')), port>>8&0xFF, port&0xFF))
+
+    def TYPE(self, type):
+        # Specify file mode to be handled
+        print('TYPE', type)
+        self.type = type
+
+        if self.type == 'I':
+            self.sendResponse('200 Binary file mode.\r\n')
+        elif self.type == 'A':
+            self.sendResponse('200 Ascii file mode.\r\n')
+        else:
+            self.sendResponse('501 Syntax error in parameters or arguments.\r\n')
 
     def MODE(self, mode):
         # Specifies data transfer mode for server
@@ -175,129 +216,7 @@ class FTPServerProtocol(threading.Thread):
         else:
             self.sendResponse('501 Syntax error in parameters or arguments.\r\n')
 
-    def PORT(self, client_command):
-        # Specify the port to be used for data transmission
-        print("PORT: ", client_command)
-        if self.PASVmode:
-            self.server_socket.close()
-            self.PASVmode = False
-
-        connection_info = client_command[5:].split(',')
-        self.data_socket_address = '.'.join(connection_info[:4])
-        self.data_socket_port = (int(connection_info[4])<<8) + int(connection_info[5])
-        self.sendResponse('200 Get port.\r\n')
-
-    def LIST(self, directory_path):
-        # Sends list of content in specified server path
-        if not self.authenticated:
-            self.sendResponse('530 User not logged in.\r\n')
-            return
-
-        if not directory_path:
-            server_path = os.path.abspath(os.path.join(self.base_path + self.working_directory, '.'))
-        elif directory_path.startswith(os.path.sep):
-            server_path = os.path.abspath(directory_path)
-        else:
-            server_path = os.path.abspath(os.path.join(self.base_path + self.working_directory, '.'))
-
-        print('LIST', server_path)
-
-        if not self.authenticated:
-            self.sendResponse('530 User not logged in.\r\n')
-        elif not os.path.exists(server_path):
-            self.sendResponse('550 LIST failed Path name not exists.\r\n')
-        else:
-            self.sendResponse('150 Here is listing.\r\n')
-            self.createDataSocket()
-
-            # if not os.path.isdir(server_path):
-            #     fileMessage = fileProperty(server_path)
-            #     self.data_socket.sock(fileMessage+'\r\n')
-            # else:
-            #     for file in os.listdir(server_path):
-            #         fileMessage = fileProperty(os.path.join(server_path, file))
-            #         self.sendData(fileMessage+'\r\n')
-
-            self.terminateDataSocket()
-            self.sendResponse('226 List done.\r\n')
-
-    def CWD(self, directory_path):
-        # Allows user to change current directory to a new directory on the server
-        server_path = self.base_path + directory_path
-        print('CWD', server_path)
-
-        if not os.path.exists(server_path) or not os.path.isdir(server_path):
-            self.sendResponse('550 CWD failed Directory does not exist.\r\n')
-            return
-
-        self.working_directory = directory_path
-
-        self.sendResponse('250 CWD Command successful.\r\n')
-
-    def PWD(self, client_command):
-        # Returns the current server directory path
-        print('PWD', client_command)
-        self.sendResponse('257 "%s".\r\n' % self.working_directory)
-
-    def CDUP(self, client_command):
-        # Changes current working directory to parent directory
-        if self.working_directory != '\\' + self.username:
-            self.working_directory = '\\' + os.path.abspath(os.path.join(self.base_path + self.working_directory, '..'))
-        print('CDUP', self.working_directory)
-        self.sendResponse('200 OK.\r\n')
-
-    # def DELE(self, filename):
-    #     # Deletes file specified in the pathname to be deleted at the server site
-    #     server_path = self.generatePath(self.base_path, filename)
-
-    #     print('DELE', server_path)
-
-    #     if not self.authenticated:
-    #         self.sendResponse('530 User not logged in.\r\n')
-    #     elif not os.path.exists(server_path):
-    #         self.send('550 DELE failed File %s does not exist\r\n' % server_path)
-    #     elif not self.allow_delete:
-    #         self.send('450 DELE failed delete not allowed.\r\n')
-    #     else:
-    #         os.remove(server_path)
-    #         self.sendResponse('250 File deleted.\r\n')
-
-    # def MKD(self, dirname):
-    #     # Creates specified directory at current path directory
-    #     server_path = self.generatePath(self.base_path, dirname)
-    #     print('MKD', server_path)
-
-    #     if not self.authenticated:
-    #         self.sendResponse('530 User not logged in.\r\n')
-    #     else:
-    #         try:
-    #             os.mkdir(server_path)
-    #             self.sendResponse('257 Directory created.\r\n')
-    #         except OSError:
-    #             self.sendResponse('550 MKD failed. Directory "%s" already exists.\r\n' % server_path)
-
-    def RMD(self, dirname):
-        # Removes specified directory at current path directory
-        import shutil
-        server_path = self.generatePath(self.base_path, dirname)
-        print('RMD', server_path)
-
-        if not self.authenticated:
-            self.sendResponse('530 User not logged in.\r\n')
-        elif not self.allow_delete:
-            self.sendResponse('450 Invalid permissions.\r\n')
-        elif not os.path.exists(server_path):
-            self.sendResponse('550 RMDIR failed Directory "%s" not exists.\r\n' % server_path)
-        else:
-            shutil.rmtree(server_path)
-            self.sendResponse('250 Directory deleted.\r\n')
-
-    def REST(self, pos):
-        # Represents the server marker at which file transfer is to be restarted
-        self.pos  = int(pos)
-        print('REST', self.pos)
-        self.rest = True
-        self.sendResponse('250 File position reset.\r\n')
+    #---------------------------------------------------------------------- FTP SERVICE COMMANDS ----------------------------------------------------------------#
 
     def RETR(self, filename):
         # Causes server-DTP to transfer a copy of the file, specified in the pathname, to the server- or user-DTP at the other end of the data connection
@@ -367,10 +286,88 @@ class FTPServerProtocol(threading.Thread):
         self.terminateDataSocket()
         self.sendResponse('226 Transfer completed.\r\n')
 
-    def NOOP(self, client_command):
-        # Specifies no action other than that the server send an OK reply
-        print('NOOP', client_command)
-        self.sendResponse('200 OK.\r\n')
+    def REST(self, pos):
+        # Represents the server marker at which file transfer is to be restarted
+        self.pos  = int(pos)
+        print('REST', self.pos)
+        self.rest = True
+        self.sendResponse('250 File position reset.\r\n')
+
+    # def DELE(self, filename):
+    #     # Deletes file specified in the pathname to be deleted at the server site
+    #     server_path = self.generatePath(self.base_path, filename)
+
+    #     print('DELE', server_path)
+
+    #     if not self.authenticated:
+    #         self.sendResponse('530 User not logged in.\r\n')
+    #     elif not os.path.exists(server_path):
+    #         self.send('550 DELE failed File %s does not exist\r\n' % server_path)
+    #     elif not self.allow_delete:
+    #         self.send('450 DELE failed delete not allowed.\r\n')
+    #     else:
+    #         os.remove(server_path)
+    #         self.sendResponse('250 File deleted.\r\n')
+
+    # def MKD(self, dirname):
+    #     # Creates specified directory at current path directory
+    #     server_path = self.generatePath(self.base_path, dirname)
+    #     print('MKD', server_path)
+
+    #     if not self.authenticated:
+    #         self.sendResponse('530 User not logged in.\r\n')
+    #     else:
+    #         try:
+    #             os.mkdir(server_path)
+    #             self.sendResponse('257 Directory created.\r\n')
+    #         except OSError:
+    #             self.sendResponse('550 MKD failed. Directory "%s" already exists.\r\n' % server_path)
+
+    def RMD(self, dirname):
+        # Removes specified directory at current path directory
+        import shutil
+        server_path = self.generatePath(self.base_path, dirname)
+        print('RMD', server_path)
+
+        if not self.authenticated:
+            self.sendResponse('530 User not logged in.\r\n')
+        elif not self.allow_delete:
+            self.sendResponse('450 Invalid permissions.\r\n')
+        elif not os.path.exists(server_path):
+            self.sendResponse('550 RMDIR failed Directory "%s" not exists.\r\n' % server_path)
+        else:
+            shutil.rmtree(server_path)
+            self.sendResponse('250 Directory deleted.\r\n')
+
+    def PWD(self, client_command):
+        # Returns the current server directory path
+        print('PWD', client_command)
+        self.sendResponse('257 "%s".\r\n' % self.working_directory)
+
+    def LIST(self, directory_path):
+        # Sends list of content in specified server path
+        if not self.authenticated:
+            self.sendResponse('530 User not logged in.\r\n')
+            return
+
+        if not directory_path:
+            server_path = os.path.abspath(os.path.join(self.base_path + self.working_directory, '.'))
+        elif directory_path.startswith(os.path.sep):
+            server_path = os.path.abspath(directory_path)
+        else:
+            server_path = os.path.abspath(os.path.join(self.base_path + self.working_directory, '.'))
+
+        print('LIST', server_path)
+
+        if not self.authenticated:
+            self.sendResponse('530 User is not logged in.\r\n')
+        elif not os.path.exists(server_path):
+            self.sendResponse('550 Path name does not exist.\r\n')
+        else:
+            self.sendResponse('150 Here is listing.\r\n')
+            self.createDataSocket()
+            self.terminateDataSocket()
+            self.sendResponse('226 LIST completed.\r\n')
 
     def HELP(self, param):
         # Provides server command list to client
@@ -413,10 +410,12 @@ class FTPServerProtocol(threading.Thread):
             """
         self.sendResponse(help)
 
-    def QUIT(self, param):
-        # Connected user logs out and disconnects from server if not transfer in progress
-        print('QUIT', param)
-        self.sendResponse('221 Goodbye.\r\n')
+    def NOOP(self, client_command):
+        # Specifies no action other than that the server send an OK reply
+        print('NOOP', client_command)
+        self.sendResponse('200 OK.\r\n')
+
+
 
 def serverListener():
     global listen_socket
