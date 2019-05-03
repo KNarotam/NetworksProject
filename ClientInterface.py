@@ -198,10 +198,10 @@ class ClientInterface(QWidget):
         for(dirName, subDirList, fileList) in walk(pathName):
             break
         for object in subDirList:
-            self.displayBrowser.append("Folder: ")
+            self.displayBrowser.append("\nFolder: ")
             self.displayBrowser.append(object)
         for object in fileList:
-            self.displayBrowser.append("File: ")
+            self.displayBrowser.append("\nFile: ")
             self.displayBrowser.append(object)
         return (dirName, subDirList, fileList)
 
@@ -309,8 +309,8 @@ class ClientInterface(QWidget):
         for object in directory:
             if object[0] == 'd':
                 foldersInDirectory.append(object)
-                self.displayBrowser.append("Folder: \n" + object)
-                #self.displayBrowser.append(object)
+                self.displayBrowser.append("Folder:")
+                self.displayBrowser.append(object)
             else:
                 filesInDirectory.append(object)
                 self.displayBrowser.append("File: ")
@@ -500,7 +500,7 @@ class ClientInterface(QWidget):
 
 
         self.textboxUserInput.setText("")
-    
+   
 
 
 ###################################################################
@@ -508,7 +508,6 @@ class ClientInterface(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    #option = OptionWindow()
     ci = ClientInterface()
     pathName = 'C:\\Users\\knaro\\Documents\\GitHub\\NetworksProject'
     sys.exit(app.exec_())
