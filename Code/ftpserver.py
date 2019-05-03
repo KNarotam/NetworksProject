@@ -1,5 +1,3 @@
-# Authored by Jared Ping
-
 import os
 import socket
 import stat
@@ -7,7 +5,7 @@ import sys
 import threading
 import time
 from pathlib import Path
-from utils import fileProperty
+# from utils import fileProperty
 
 try:
     host = socket.gethostbyname(socket.gethostname())
@@ -44,11 +42,11 @@ class FTPServerProtocol(threading.Thread):
                     client_command = data.decode('utf-8')
                 except AttributeError:
                     client_command = data
-                log('Received data', client_command)
+                print('Received data', client_command)
                 if not client_command:
                     break
             except socket.error as error:
-                log('Receive', error)
+                print('Receive', error)
 
             try:
                 client_command, param = client_command[:4].strip().upper(), client_command[4:].strip() or None
@@ -57,7 +55,7 @@ class FTPServerProtocol(threading.Thread):
             except AttributeError as error:
                 self.sendResponse('500 Syntax error, command unrecognized. '
                     'This may include errors such as command line too long.\r\n')
-                log('Receive', error)
+                print('Receive', error)
 
     def connectionSuccess(self):
         # Provide greeting for accepted user connection
@@ -88,7 +86,7 @@ class FTPServerProtocol(threading.Thread):
     #=======================================#
     def createDataSocket(self):
         # Open socket with client for data transmission
-        log('createDataSocket', 'Opening a data channel')
+        print('createDataSocket', 'Opening a data channel')
         try:
             self.data_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             if self.pasv_mode:
@@ -98,17 +96,17 @@ class FTPServerProtocol(threading.Thread):
                 self.data_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.data_socket.connect((self.data_socket_address, self.data_socket_port))
         except socket.error as error:
-            log('createDataSocket', error)
+            print('createDataSocket', error)
 
     def terminateDataSocket(self):
         # Close data tranmission socket with client
-        log('terminateDataSocket', 'Closing a data channel')
+        print('terminateDataSocket', 'Closing a data channel')
         try:
             self.data_socket.close()
             if self.pasv_mode:
                 self.server_socket.close()
         except socket.error as error:
-            log('terminateDataSocket', error)
+            print('terminateDataSocket', error)
 
     def sendResponse(self, client_command):
         # Transmit request codes and relevant message to client
@@ -126,7 +124,7 @@ class FTPServerProtocol(threading.Thread):
     #===============================================#
     def USER(self, username):
         # Lets user to set their username
-        log("USER", username)
+        print("USER", username)
         if not username:
             self.sendResponse('501 Syntax error in parameters or arguments.\r\n')
         else:
@@ -136,7 +134,7 @@ class FTPServerProtocol(threading.Thread):
 
     def PASS(self, password):
         # Lets user to set their password
-        log("PASS", password)
+        print("PASS", password)
         if not password:
             self.sendResponse('501 Syntax error in parameters or arguments.\r\n')
 
@@ -151,7 +149,7 @@ class FTPServerProtocol(threading.Thread):
 
     def TYPE(self, type):
         # Specify file mode to be handled
-        log('TYPE', type)
+        print('TYPE', type)
         self.type = type
 
         if self.type == 'I':
@@ -163,7 +161,7 @@ class FTPServerProtocol(threading.Thread):
 
     def PASV(self, client_command):
         # Makes server-DTP "listen" on a non-default data port to wait for a connection rather than initiate one upon receipt of a transfer command
-        log("PASV", client_command)
+        print("PASV", client_command)
         self.pasv_mode  = True
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -175,7 +173,7 @@ class FTPServerProtocol(threading.Thread):
 
     def MODE(self, mode):
         # Specifies data transfer mode for server
-        log('MODE', mode)
+        print('MODE', mode)
         self.mode = mode
 
         if self.mode == 'S':
@@ -189,7 +187,7 @@ class FTPServerProtocol(threading.Thread):
 
     def STRU(self, file_structure):
         # Specifies file structure type for server
-        log('STRU', file_structure)
+        print('STRU', file_structure)
         self.file_structure = file_structure
 
         if self.file_structure == 'F':
@@ -201,12 +199,12 @@ class FTPServerProtocol(threading.Thread):
 
     def STAT(self, client_command):
         # Specifies file structure type for server
-        log('STAT', client_command)
+        print('STAT', client_command)
         self.sendResponse('502 Command not implemented.\r\n')
 
     def PORT(self, client_command):
         # Specify the port to be used for data transmission
-        log("PORT: ", client_command)
+        print("PORT: ", client_command)
         if self.pasv_mode:
             self.server_socket.close()
             self.pasv_mode = False
@@ -229,7 +227,7 @@ class FTPServerProtocol(threading.Thread):
         else:
             server_path = os.path.abspath(os.path.join(self.base_path + self.working_directory, '.'))
 
-        log('LIST', server_path)
+        print('LIST', server_path)
 
         if not self.authenticated:
             self.sendResponse('530 User not logged in.\r\n')
@@ -239,13 +237,13 @@ class FTPServerProtocol(threading.Thread):
             self.sendResponse('150 Here is listing.\r\n')
             self.createDataSocket()
 
-            if not os.path.isdir(server_path):
-                fileMessage = fileProperty(server_path)
-                self.data_socket.sock(fileMessage+'\r\n')
-            else:
-                for file in os.listdir(server_path):
-                    fileMessage = fileProperty(os.path.join(server_path, file))
-                    self.sendData(fileMessage+'\r\n')
+            # if not os.path.isdir(server_path):
+            #     fileMessage = fileProperty(server_path)
+            #     self.data_socket.sock(fileMessage+'\r\n')
+            # else:
+            #     for file in os.listdir(server_path):
+            #         fileMessage = fileProperty(os.path.join(server_path, file))
+            #         self.sendData(fileMessage+'\r\n')
 
             self.terminateDataSocket()
             self.sendResponse('226 List done.\r\n')
@@ -263,7 +261,7 @@ class FTPServerProtocol(threading.Thread):
         else:
             server_path = os.path.abspath(os.path.join(self.base_path + self.working_directory, '.'))
 
-        log('NLST', directory_path)
+        print('NLST', directory_path)
         
         if not self.authenticated:
             self.sendResponse('530 User not logged in.\r\n')
@@ -273,12 +271,12 @@ class FTPServerProtocol(threading.Thread):
             self.sendResponse('150 Here is listing.\r\n')
             self.createDataSocket()
 
-            if not os.path.isdir(server_path):
-                fileMessage = fileProperty(server_path)
-                self.data_socket.sock(fileMessage+'\r\n')
-            else:
-                for file in os.listdir(server_path):
-                    self.sendData(file+'\r\n')
+            # if not os.path.isdir(server_path):
+            #     fileMessage = fileProperty(server_path)
+            #     self.data_socket.sock(fileMessage+'\r\n')
+            # else:
+            #     for file in os.listdir(server_path):
+            #         self.sendData(file+'\r\n')
 
             self.terminateDataSocket()
             self.sendResponse('226 List done.\r\n')
@@ -286,7 +284,7 @@ class FTPServerProtocol(threading.Thread):
     def CWD(self, directory_path):
         # Allows user to change current directory to a new directory on the server
         server_path = self.base_path + directory_path
-        log('CWD', server_path)
+        print('CWD', server_path)
 
         if not os.path.exists(server_path) or not os.path.isdir(server_path):
             self.sendResponse('550 CWD failed Directory does not exist.\r\n')
@@ -298,21 +296,21 @@ class FTPServerProtocol(threading.Thread):
 
     def PWD(self, client_command):
         # Returns the current server directory path
-        log('PWD', client_command)
+        print('PWD', client_command)
         self.sendResponse('257 "%s".\r\n' % self.working_directory)
 
     def CDUP(self, client_command):
         # Changes current working directory to parent directory
         if self.working_directory != '\\' + self.username:
             self.working_directory = '\\' + os.path.abspath(os.path.join(self.base_path + self.working_directory, '..'))
-        log('CDUP', self.working_directory)
+        print('CDUP', self.working_directory)
         self.sendResponse('200 OK.\r\n')
 
     def DELE(self, filename):
         # Deletes file specified in the pathname to be deleted at the server site
         server_path = self.generatePath(self.base_path, filename)
 
-        log('DELE', server_path)
+        print('DELE', server_path)
 
         if not self.authenticated:
             self.sendResponse('530 User not logged in.\r\n')
@@ -327,7 +325,7 @@ class FTPServerProtocol(threading.Thread):
     def MKD(self, dirname):
         # Creates specified directory at current path directory
         server_path = self.generatePath(self.base_path, dirname)
-        log('MKD', server_path)
+        print('MKD', server_path)
 
         if not self.authenticated:
             self.sendResponse('530 User not logged in.\r\n')
@@ -342,7 +340,7 @@ class FTPServerProtocol(threading.Thread):
         # Removes specified directory at current path directory
         import shutil
         server_path = self.generatePath(self.base_path, dirname)
-        log('RMD', server_path)
+        print('RMD', server_path)
 
         if not self.authenticated:
             self.sendResponse('530 User not logged in.\r\n')
@@ -357,7 +355,7 @@ class FTPServerProtocol(threading.Thread):
     def RNFR(self, filename):
         # Specifies the old pathname of the file which is to be renamed
         server_path = self.generatePath(self.base_path, filename)
-        log('RNFR', server_path)
+        print('RNFR', server_path)
 
         if not os.path.exists(server_path):
             self.sendResponse('550 RNFR failed. File or Directory %s does not exist.\r\n' % server_path)
@@ -368,7 +366,7 @@ class FTPServerProtocol(threading.Thread):
     def RNTO(self, filename):
         # Specifies the new pathname of the file specified in the immediately preceding "rename from" command
         server_path = self.generatePath(self.base_path, filename)
-        log('RNTO', server_path)
+        print('RNTO', server_path)
 
         if not os.path.exists(os.path.sep):
             self.sendResponse('550 RNTO failed. File or Directory  %s does not exist.\r\n' % server_path)
@@ -377,19 +375,19 @@ class FTPServerProtocol(threading.Thread):
                 os.rename(self.rnfr, server_path)
                 self.sendResponse('250 RNTO successful')
             except OSError as error:
-                log('RNTO', error)
+                print('RNTO', error)
 
     def REST(self, pos):
         # Represents the server marker at which file transfer is to be restarted
         self.pos  = int(pos)
-        log('REST', self.pos)
+        print('REST', self.pos)
         self.rest = True
         self.sendResponse('250 File position reset.\r\n')
 
     def RETR(self, filename):
         # Causes server-DTP to transfer a copy of the file, specified in the pathname, to the server- or user-DTP at the other end of the data connection
         server_path = self.generatePath(self.base_path, "\\" + filename)
-        log('RETR', server_path)
+        print('RETR', server_path)
 
         if not os.path.exists(server_path):
             return
@@ -399,7 +397,7 @@ class FTPServerProtocol(threading.Thread):
             else:
                 file = open(server_path, 'r')
         except OSError as error:
-            log('RETR', error)
+            print('RETR', error)
 
         self.sendResponse('150 Opening data connection.\r\n')
 
@@ -426,7 +424,7 @@ class FTPServerProtocol(threading.Thread):
             return
 
         server_path = self.generatePath(self.base_path, "\\" + filename)
-        log('STOR', server_path)
+        print('STOR', server_path)
 
         try:
             if self.type == 'I':
@@ -434,7 +432,7 @@ class FTPServerProtocol(threading.Thread):
             else:
                 file = open(server_path, 'w')
         except OSError as error:
-            log('STOR', error)
+            print('STOR', error)
 
         self.sendResponse('150 Opening data connection.\r\n' )
         self.createDataSocket()
@@ -462,7 +460,7 @@ class FTPServerProtocol(threading.Thread):
             return
 
         server_path = self.generatePath(self.base_path, filename)
-        log('APPE', server_path)
+        print('APPE', server_path)
         self.sendResponse('150 Opening data connection.\r\n')
         self.createDataSocket()
 
@@ -501,17 +499,17 @@ class FTPServerProtocol(threading.Thread):
 
     def SYST(self, client_command):
         # Used to find out the type of operating system at the server
-        log('SYST', client_command)
+        print('SYST', client_command)
         self.sendResponse('215 %s type.\r\n' % sys.platform)
 
     def NOOP(self, client_command):
         # Specifies no action other than that the server send an OK reply
-        log('NOOP', client_command)
+        print('NOOP', client_command)
         self.sendResponse('200 OK.\r\n')
 
     def HELP(self, param):
         # Provides server command list to client
-        log('HELP', param)
+        print('HELP', param)
         help = """
             214
             USER [name], Its argument is used to specify the user's string. It is used for user authentication.
@@ -552,13 +550,8 @@ class FTPServerProtocol(threading.Thread):
 
     def QUIT(self, param):
         # Connected user logs out and disconnects from server if not transfer in progress
-        log('QUIT', param)
+        print('QUIT', param)
         self.sendResponse('221 Goodbye.\r\n')
-
-def log(func, client_command=''):
-    # Provides logger service for server activity
-    log_message = time.strftime("%Y-%m-%d %H-%M-%S [-] " + func)
-    print("\033[31m%s\033[0m: \033[32m%s\033[0m" % (log_message, client_command))
 
 def serverListener():
     global listen_socket
@@ -567,19 +560,19 @@ def serverListener():
     listen_socket.bind((host, port))
     listen_socket.listen(5)
 
-    log('Server started', 'Listen on: %s, %s' % listen_socket.getsockname())
+    print('Server started', 'Listen on: %s, %s' % listen_socket.getsockname())
     while True:
         connection, address = listen_socket.accept()
         ftp_connection_instance = FTPServerProtocol(connection, address)
         ftp_connection_instance.start()
-        log('Accept', 'Created a new connection %s, %s' % address)
+        print('Accept', 'Created a new connection %s, %s' % address)
 
 if __name__ == "__main__":
-    log('Start FTP server', 'Enter EXIT to stop FTP server...')
+    print('Start FTP server', 'Enter EXIT to stop FTP server...')
     listener = threading.Thread(target=serverListener)
     listener.start()
 
     if input().lower() == "exit":
         listen_socket.close()
-        log('Server stop', 'Server closed')
+        print('Server stop', 'Server closed')
         sys.exit()
