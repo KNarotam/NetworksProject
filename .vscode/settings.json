@@ -1,3 +1,7 @@
 {
+<<<<<<< Updated upstream
     "python.pythonPath": "C:\\Users\\knaro\\AppData\\Local\\Programs\\Python\\Python37\\python.exe"
+=======
+    "python.pythonPath": "C:\\Python\\python.exe"
+>>>>>>> Stashed changes
 }

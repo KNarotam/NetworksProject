@@ -206,11 +206,11 @@ s.connect((address, port))
 s.recv(1024)
 
 os.system('cls' if os.name == 'nt' else 'clear')
-#userName = input("Enter the user name: ")
-userName = 'anon'
+userName = input("Enter the user name: ")
+#userName = 'anonymous'
 combinedSendReceive('USER ' + userName)
-#password = input("Enter the password: ")
-password = 'anon'
+password = input("Enter the password: ")
+#password = 'anonymous@'
 combinedSendReceive('PASS ' + password)
 
 # Get current working directory
