@@ -20,15 +20,15 @@ working_directory  = os.getcwd()
 #---------------------------------------------------- Client Declaration ----------------------------------------------------#
 
 class FTPServerProtocol(threading.Thread):
-    def __init__(self, command_socket, address):
+    def __init__(self, controlSocket, address):
         threading.Thread.__init__(self)
-        self.authenticated      = False
+        self.loginStatus      = False
         self.PASVmode          = False
         self.rest               = False
         self.allow_delete       = False
         self.working_directory  = working_directory
         self.base_path          = working_directory
-        self.command_socket     = command_socket
+        self.controlSocket     = controlSocket
         self.address            = address
         self.type               = 'A'
         self.mode               = 'S'
@@ -38,7 +38,7 @@ class FTPServerProtocol(threading.Thread):
         self.sendResponse('220' + 'Service ready for new user.\r\n')    
         while True:
             try:
-                data = self.command_socket.recv(1024).rstrip()                                                              #1024 acts as a ascii buffer
+                data = self.controlSocket.recv(1024).rstrip()                                                              #1024 acts as a ascii buffer
                 try:
                     client_command = data.decode('utf-8')
                 except AttributeError:
@@ -63,13 +63,13 @@ class FTPServerProtocol(threading.Thread):
         # Open socket with client for data transmission
         print('createDataSocket', 'Opening a data channel')
         try:
-            self.data_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.dataSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             if self.PASVmode:
-                self.data_socket, self.address = self.server_socket.accept()
+                self.dataSocket, self.address = self.server_socket.accept()
 
             else:
-                self.data_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                self.data_socket.connect((self.data_socket_address, self.data_socket_port))
+                self.dataSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.dataSocket.connect((self.data_socket_address, self.data_socket_port))
         except socket.error as error:
             print('createDataSocket', error)
     
@@ -81,7 +81,7 @@ class FTPServerProtocol(threading.Thread):
         # Close data tranmission socket with client
         print('terminateDataSocket', 'Closing a data channel')
         try:
-            self.data_socket.close()
+            self.dataSocket.close()
             if self.PASVmode:
                 self.server_socket.close()
         except socket.error as error:
@@ -89,14 +89,14 @@ class FTPServerProtocol(threading.Thread):
 
     def sendResponse(self, client_command):
         # Transmit request codes and relevant message to client
-        self.command_socket.send(client_command.encode('utf-8'))
+        self.controlSocket.send(client_command.encode('utf-8'))
 
     def sendData(self, data):
         # Transmit file data to client
         if self.type == 'I':
-            self.data_socket.send(data)
+            self.dataSocket.send(data)
         else:
-            self.data_socket.send(data.encode('utf-8'))
+            self.dataSocket.send(data.encode('utf-8'))
 
     #---------------------------------------------------- FTP COMMANDS ----------------------------------------------------#
 
@@ -136,7 +136,7 @@ class FTPServerProtocol(threading.Thread):
         else:
             self.sendResponse('230 User logged in, proceed.\r\n')
             self.password = password
-            self.authenticated = True
+            self.loginStatus = True
             self.allow_delete = True
 
     def CWD(self, directory_path):
@@ -253,7 +253,7 @@ class FTPServerProtocol(threading.Thread):
 
     def STOR(self, filename):
         # Causes the server-DTP to accept the data transferred via the data connection and to store the data as a file at the server site
-        if not self.authenticated:
+        if not self.loginStatus:
             self.sendResponse('530 STOR failed. User is not logged in.\r\n')
             return
 
@@ -273,9 +273,9 @@ class FTPServerProtocol(threading.Thread):
 
         while True:
             if self.type == 'I':
-                data = self.data_socket.recv(4194304)
+                data = self.dataSocket.recv(4194304)
             else:
-                data = self.data_socket.recv(4194304).decode('utf-8')
+                data = self.dataSocket.recv(4194304).decode('utf-8')
 
             if not data:
                 break
@@ -299,7 +299,7 @@ class FTPServerProtocol(threading.Thread):
 
     #     print('DELE', server_path)
 
-    #     if not self.authenticated:
+    #     if not self.loginStatus:
     #         self.sendResponse('530 User not logged in.\r\n')
     #     elif not os.path.exists(server_path):
     #         self.send('550 DELE failed File %s does not exist\r\n' % server_path)
@@ -314,7 +314,7 @@ class FTPServerProtocol(threading.Thread):
     #     server_path = self.generatePath(self.base_path, dirname)
     #     print('MKD', server_path)
 
-    #     if not self.authenticated:
+    #     if not self.loginStatus:
     #         self.sendResponse('530 User not logged in.\r\n')
     #     else:
     #         try:
@@ -329,7 +329,7 @@ class FTPServerProtocol(threading.Thread):
         server_path = self.generatePath(self.base_path, dirname)
         print('RMD', server_path)
 
-        if not self.authenticated:
+        if not self.loginStatus:
             self.sendResponse('530 User not logged in.\r\n')
         elif not self.allow_delete:
             self.sendResponse('450 Invalid permissions.\r\n')
@@ -346,7 +346,7 @@ class FTPServerProtocol(threading.Thread):
 
     def LIST(self, directory_path):
         # Sends list of content in specified server path
-        if not self.authenticated:
+        if not self.loginStatus:
             self.sendResponse('530 User not logged in.\r\n')
             return
 
@@ -359,7 +359,7 @@ class FTPServerProtocol(threading.Thread):
 
         print('LIST', server_path)
 
-        if not self.authenticated:
+        if not self.loginStatus:
             self.sendResponse('530 User is not logged in.\r\n')
         elif not os.path.exists(server_path):
             self.sendResponse('550 Path name does not exist.\r\n')
