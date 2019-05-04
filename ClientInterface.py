@@ -1,3 +1,6 @@
+# Authored by Kishan Narotam (717 931)
+
+
 import socket
 import sys
 import os
@@ -8,8 +11,6 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAc
 from PyQt5.QtGui import *
 from PyQt5.QtCore import pyqtSlot
 
-
-pathName = os.getcwd()
 ##########################################################
 ################# Creating the Interface #################
 ##########################################################
@@ -29,7 +30,7 @@ class ClientInterface(QWidget):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        self.setStyleSheet("background-color:rgb(106, 106, 106)")
+        self.setStyleSheet("background-color:rgb(100, 100, 100)")
 
         #### Address Interface Features ####
         # Set Address Label
@@ -291,7 +292,7 @@ class ClientInterface(QWidget):
         # create an empty array that will store the directory
         directory = []
 
-        # wait 1 second before receiving the directory and printing it out
+        # wait 100 milliseconds before receiving the directory and printing it out
         time.sleep(.1)
         contentOfDirectory = passiveSocket.recv(1024)
         # decode the contents of the directory
@@ -384,7 +385,7 @@ class ClientInterface(QWidget):
         if userInput == 'CWLD':
             option, okPressed = QInputDialog.getText(self, "Your option", "Choose Directory (Press home to go to home directory)", QLineEdit.Normal, "")
             if option == "home":
-                pathName = 'C:\\Users\\knaro\\Documents\\GitHub\\NetworksProject'
+                pathName = os.getcwd()
             else:
                 pathName = pathName + '\\' + option
 
@@ -509,5 +510,5 @@ class ClientInterface(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ci = ClientInterface()
-    pathName = 'C:\\Users\\knaro\\Documents\\GitHub\\NetworksProject'
+    pathName = os.getcwd()
     sys.exit(app.exec_())
