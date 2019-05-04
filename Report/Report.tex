@@ -6,11 +6,14 @@
 \usepackage{fancyhdr}
 \usepackage{url}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{listings}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{lipsum}
 \usepackage{bookmark}
+\pagestyle{plain}
+\def\code#1{\texttt{#1}}
 
 %----------------------------------------------------------------------------------------
 %	PDF INFORMATION
@@ -43,32 +46,29 @@ Witwatersrand, Private Bag 3, 2050, Johannesburg, South Africa}
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
-\abstract{The purpose of this document is to provide an easy-to-use
-template/style sheet to enable authors to prepare papers in the correct format
-and style for the final year laboratory project. This document may be
-downloaded from the School of Electrical and Information Engineering web site
-and can be used as a template. To ensure conformity of appearance it is
-essential that these instructions are followed. The abstract should be limited
-to 50-200 words, which should concisely summarise the paper.}
+\abstract{The following report presents the design, implementation and testing of a File Transfer Application. The system consists of a server and a client that requires a simple graphical user interface. The system is deemed a success as the minimum requirements stated in RFC 959 were met. The client is able to display and traverse directories and the contents, upload and download various file types to and from the server and responds with the correct response message. The client is tested against multiple FTP servers and Wireshark is used confirm the successful results. The overall system is critically analyzed and its limitations and problems are presented. Future development of the system includes improving the functionality of the client and server.}
 
-\keywords{Four to six key words in alphabetical order, separated by commas.}
+\keywords{File Transfer Protocol, Client-Server modal, networking, Wireshark}
 
 
 \maketitle
-\thispagestyle{empty}\pagestyle{empty}
+
 
 
 %----------------------------------------------------------------------------------------
 %	MAIN BODY OF REPORT
-%----------------------------------------------------------------------------------------
 \section{INTRODUCTION}
 \label{sec: Introduction}
+The File Transfer Protocol (FTP) is a set of systemic rules that allow networked computers to communicate with one another on the basis of a client-server model~\cite{FTP}. The protocol communicates over a TCP/IP network and is used to transfer files to and from one another~\cite{WIRED}. The objectives of FTP are to promote sharing of computer programs and/or data; utilize the use of programs on remote computers; to protect a user from variations in file storage systems among hosts; and to have reliable data transfer that includes efficiency~\cite{RFC959}.
+
+A File Transfer Application consists of two components, a FTP server and a FTP client. In the report that follows, the design, implementation and testing of a File Transfer Application is presented. This includes an overview of the system, how the client and server communicate with one another, a critical analysis of the overall system and results from various testing techniques and subsequently how the work was divided among the group.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \section{SYSTEM OVERVIEW}
 \label{sec: System Overview}
+The File Transfer Application is required to follow certain guidelines as listed in the Request for Comments: 959 document~\cite{RFC959}. The minimum requirements for both the server and client are listed in the document with the corresponding list of commands and replies designated for FTP.
 
 \subsection{FTP Server}
 \label{sec: FTP Server}
@@ -76,6 +76,23 @@ MATT
 
 \subsection{FTP Client}
 \label{sec: FTP Client}
+The FTP client is executed from a user's personal computer (local host) and allows the user to interact with a FTP server with the goal of transferring files both to and from the server. The client is implemented with a GUI (graphical user interface) that makes the use of FTP easier.
+
+The GUI allows the user to connect to the desired FTP server, but does not give the option to change the port number. The port number is restricted to 21 as this is the designated port number for FTP. Once connected to the desired server, the user is then allowed to login with a username and password.
+
+The username and password used to log into the server must be authenticated by the server before the user can continue. Once authenticated, the user is given a chance to call various functions in the interface. Since the design of the GUI for the FTP client is kept simple, discussed later in Section~\ref{sec: GUI}, the client requires the user to type in designated commands that will prompt the relative response from the FTP server.
+
+The user is allowed user to view the current directory in the server and in the local host. This is provided by listing each item in the respective directory, labeling each returned item as a folder or a file. Once the user knows the files and folders in both the server and the local host, they are allowed to change the directory in either using the respective command prompts. The user can traverse the server with ease, by allowing them to go down a level (into a new folder) or up a level (exit out of the current folder). Furthermore, the user can traverse the local host from the client interface, by changing folders or returning to the original directory when the connection between the client and server was established.
+
+Subsequently, the user can upload (send) a file from the currently selected directory in the local host to the currently selected directory in the server. The files that a user can send, given that they have permission to write to the server directory, range from simple text files to a variety of image files, music files and video files.
+
+The downloading (receiving/retrieving) a file from the server to the local host is also possible. As mentioned before, depending on the user's currently selected directory, a variety of file types can be downloaded to the local host over the client interface and saved to the respective folder.
+
+\subsection{Unimplemented Features}
+\label{sec: Client Unimplemented Features}
+Although the basic features of traversing directories in both the client and server, uploading and downloading files and presenting the current directories, many features have not been implemented in the client. The user is unable to create new directories, remove or rename them from either server or client directories. This extends to the inability to delete or rename files from the server or client.
+
+Due to complexity in programming, the feature to change a file structure is not implemented. Along with the ability to change transmission mode, the client does not allow the user to change the transmission mode between \textit{stream} and \textit{block} mode. The \textit{stream} mode is utilized as the default transmission mode in this implementation of FTP, since all data transferred is of \textit{file} structure~\cite{RFC959}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,6 +108,17 @@ MATT, the table of our server's code implementations
 %
 \section{IMPLEMENTATION}
 \label{sec: Implementation}
+The server and client were both implemented using the programming language \code{Python}, specifically \code{Python 3}. Both client and server utilize the \code{socket} module that allows the user to access the BSD socket interface in the operating system~\cite{socket}. The communication between the client and server utilizes this module. The \code{os} module allows the user to use the operating system dependent functionality~\cite{os}. This module gave the user the ability to traverse and view the directories and the respective files.
+
+Since FTP communicates over a TCP/IP connection, this type of connection needs to be established. When commands are sent from the client to the server, these need to be formatted in a way that the server can understand and decode. For this reason, UTF-8 encoding was used for universal communication. An example of how the commands are formatted and sent can be seen in Figure~\ref{fig: Communication}, where the respective ``['' ``]'' should be ignored and \code{\textbackslash r\textbackslash n} behave as a terminator of the command.
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\code{[Command]\ [Arguments][\textbackslash r\textbackslash n]}
+\caption{Command}
+\label{fig: Communication}
+\end{figure}
 
 
 \subsection{Server Implementation}
@@ -100,45 +128,86 @@ MATT, see how Jared did this part of the report
 
 \subsection{Client Implementation}
 \label{sec: Client Implementation}
+The FTP client was first developed as a terminal-type system, with all responses being sent to and received from the server being presented in the command window. This made for easier debugging if errors arose before creating a GUI for the client.
+
+\subsubsection{Connection to the Server}
+\label{sec: Connection to server}
+The first step in implementing the FTP client was to secure a connection with the server. In order for the client to connect, the IP address and port number of the server must be known before the connection can be initiated. Since the purpose of the connection is for FTP, the port number utilized is set to \code{21}. In order to communicate with the server, a \code{send()} function was created that will send the commands to the server as per Figure~\ref{fig: Communication}.
+
+With a half duplex communication channel set up, the client required a \code{receive()} function that  could return the message sent from the server. These responses from the server are printed to the command window, and in the GUI the display window, so that the user can respond accordingly. To ensure that the message or command would be sent first then received a function that confined these functions to the correct order was created, aptly named \code{combinedSendReceive()}.
+
+A \code{passive()} function was created in order for files to be transferred between the client and server. This function sends the code \code{PASV} to the server that initiates the passive mode connection. This means that the client initiates both connections to the server, therefore preventing the firewalls from filtering incoming data~\cite{passive}. The client opens two random ports locally, whereby the first port contacts the server on port \code{21}, and the \code{PASV} command will be issued. The second random port is opened (port number \code{>1023}), the connection is established and data can then be transferred~\cite{passive}.
+
+\subsubsection{Traversing the Directories}
+\label{sec: Traversing directories}
+The local host directory is obtained through the function \code{localDirectory()}. This function uses a function in the \code{os} module to go through every hierarchical directory before presenting the full directory the user is currently in. Listing the files and folders in the current directory is done through the function \code{browseDirectory()}. However, in the directory, all sub-directories (folders) are listed first, and then all subsequent files are listed.
+
+The server directory is presented by the function \code{listDirectory()}, where FTP passive mode must be entered and the command \code{LIST} is sent to the server, and the client decodes the received data, and presents it accordingly. Once all of the folders and files in the remote directory have been listed, the \code{ABOR} command is sent to the server and the new passive socket is closed. Changing directories is done through user input, where the command \code{CDUP} is sent to the server to go up one directory or \code{CWD} to change the directory and go into one of the listed folders on the server.
+
+\subsubsection{Transferring Files}
+\label{sec: Transferring Files}
+Sending or uploading a file to the server is done through the function \code{sendFile()}. However, before sending the file using this function, the server needs information on the type of file that it will receive. If the file is an ASCII file, the command \code{TYPE A} is sent to the server, or if the file is a binary (image) file, the command \code{TYPE I} is sent to the server. Passive mode is then entered, and the command \code{STOR} and the file name is sent to the server. While being uploaded, the file is broken down into smaller chunks of data and sent through.
+
+Receiving or retrieving or downloading a file from the server is done through the function \code{receiveFile()}. Once again, the server needs to know the type of file that is being sent to the client, and since no automatic process of checking the file type is done, the user needs to enter either ASCII or binary (image) and respective commands are sent to the servers. Once passive mode is entered, the command \code{RECV} is sent to the server, and the new file is downloaded to the home directory of the local host.
+
+\subsubsection{GUI}
+\label{sec: GUI}
+The \code{Qt} application framework is utilized as the graphical user interface. The specific one used is the \code{PyQt5} framework as it was designed for the \code{Pyhton} programming language. The GUI provides the user with a simple interface in order to accomplish the desired tasks of an FTP client. There are various text boxes and corresponding buttons that will allow the user to enter the server address and press the connect button to initiate a connection. There is a display box that allows the user to view the corresponding codes from the server, current directories and relevant responses depending on the commands typed in the interface. Figure~\ref{fig: GUI} in Appendix~\ref{app: GUI} shows the designed interface.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \section{DIVISION OF WORK}
 \label{sec: Division of Work}
+The File Transfer Application has two components: the client and the server. All client related work, including all relevant report sections were written by Kishan Narotam. All server related work, including all relevant report sections were written by Matthew van Rooyen. The commands and replies information was handled by Matthew while Kishan handled the introduction and conclusion of the report. The results, critical analysis and abstract was done by both group members.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \section{RESULTS}
 \label{sec: Results}
-
+The testing was done in various ways in order to test the full functionality of client and server. First the implemented client and server are tested together on two separate laptops connected to the same network. Second, the implemented client is tested with a FileZilla server on the same laptop, and lastly the implemented client is tested with a free online FTP server.
 
 \subsection{Implemented server and client}
 \label{sec: Results implemented server}
+Due to certain limitations and issues, discussed in further detail in Section~\ref{sec: Limitations and Problems}, the commands tested against the implemented server where focused more around uploading and downloading various files. The client (\code{10.0.0.24}) connected to the server (\code{10.0.0.7}) and confirmation was received. As seen in Figures~\ref{fig: Server log} and~\ref{fig: Server Wireshark} in Appendix~\ref{app: Results}, the client requested the current working directories. The client then downloaded the file \code{TestFile.txt}, and once completed, the client uploaded the file \code{Devil.png}. Both files were respectively downloaded and uploaded correctly, thus confirming a successful test scenario.
 
 \subsection{FileZilla server and client}
 \label{sec: Results FileZilla}
+Increasing the amount of functionality seen in the previous test, the FileZilla server was connected to by the client on the same host. Figures~\ref{fig: FileZilla log} and~\ref{fig: FileZilla GUI} in Appendix~\ref{app: Results} show the log from FileZilla and how the directories are presented in the interface respectively. As seen from the log, the remote directory was changed before the file \code{Obi-Wan.mp3} was uploaded. After a computer error, the client had to reconnect to the server, then was prompted to download the image \code{May4th.jpg}. The directory on the server was changed, before another download was prompted, and lastly a text file \code{lipsum.txt} was uploaded to the server. This confirmed yet another successful test scenario of the implemented client.
 
 
 \subsection{Free online server and client}
 \label{sec: Results Online}
+The final test case made use of a public FTP server (\code{demo.wftpserver.com}). The reason this was chosen was to test the authentication of the user's login information, thus determining the amount of rights granted. Figures~\ref{fig: Wftp Wireshark} and~\ref{fig: Wftp GUI} in Appendix~\ref{app: Results} show the Wireshark trace and respond codes and the implemented interface displays information after downloading a significantly large file. First the directories are displayed, then the remote directory was changed and download began for pdf file \code{manual\_en.pdf} which took approximately 16 seconds to download. Once downloaded, the total number of bytes downloaded and the speed of the transfer was displayed in the interface. An attempt was made to upload a file to the public FTP server, however as seen from the trace in Figure~\ref{fig: Wftp Wireshark} in Appendix~\ref{app: Results}, the user was banned as they did not have the correct rights. This test scenario proved successful and showed that the client is indeed a successful implementation.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \section{CRITICAL ANALYSIS}
 \label{sec: Critical Analysis}
+After testing and analyzing the implemented system, the success, limitations and possible future development ideas are presented below.
 
 \subsection{Successes}
 \label{sec: Successes}
-MATT talk about server success
+The File Transfer Application is functional and is a decent solution. As shown in Section~\ref{sec: Results}, the requirements are met for a basic File Transfer Application. These requirements are:
+\begin{itemize}
+\item The client is able to communicate with the server, send commands and receive corresponding replies from the server.
+\item The client is provided with a simple graphical interface that communicates with different FTP servers.
+\item The client is able to upload and download various files, such as: images, audio, text, video.
+\item Wireshark traces indicated that the File Transfer Protocol was utilized and followed.
+\item The client and server are able to communicate with one another regardless of which host either is on, provided they are on the same network.
+\item No FTP libraries available in \code{Python} were used.
+\end{itemize}
+
+The system met all these requirements and yielded promising results. This is an indication of the success of the system.
+
 
 \subsection{Limitations and Problems}
 \label{sec: Limitations and Problems}
-MATT talkl about server issues and limitations
+The client did not suffer from any or few problems. One issue that occurred was that should the server not respond in a timely manner, the client would crash. This could be due to an incorrect command being sent to the server or a computer problem causing the program to crash. The client was fairly limited as its functionality did not allow for creation and deletion of directories and files. 
 
 \subsection{Future Development}
 \label{sec: Future Development}
-MATT, say what could be improved
+The client interface can be given a more interactive and informative improvement. Along with this, the client can implement some of the missing features explained in Section~\ref{sec: Client Unimplemented Features}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -146,38 +215,127 @@ MATT, say what could be improved
 \section{CODE STRUCTURE AND PREREQUISITES}
 \label{sec: CODE STRUCTURE AND PREREQUISITES}
 
-
 \subsection{Code Structure}
 \label{sec: Code Structure}
+The client and server both make use of a class based code structure. The server has one class that allows the multithreading to occur, in order for multiple clients to connect. Subsequently, it contains all of the necessary indexing of the commands that could be sent by a client and the corresponding response codes. The client has one class that extends on the initial implementation of a terminal-based client. This was done to reduce complexity and to ensure the success of the terminal based client was carried over into the client with a user interface.
 
 \subsection{System Prerequisites}
 \label{sec: System Prerequisites}
-MATT, just type the code needed to run your server
+The server and client require \code{Python 3} and were implemented on Windows 10 operating systems. Many external modules were utilized to ensure a functional client interface from \code{Python 3}. The \code{PyQT5} module was chosen as this is one of the available interface modules that gave minimal complexity and allowed for the simple interface implemented for the client. Furthermore, this module is compatible with \code{Python 3}. In order to execute the programs, one would need to install the relevant modules by typing the following in the terminal (cmd):
+\code{pip install pyqt5}
+
+The server can be started by typing the following command in the terminal:
+
+The client can be started by using the following command in the terminal:
+\code{python -u ClientInterface.py}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \section{CONCLUSION}
 \label{sec: Conclusion}
-
-A conclusion may review the main points of the paper, but do not replicate the
-abstract as the conclusion.
+the design, implementation and testing of a File Transfer Application has been presented. The overall system was regarded as a success regardless of minor problems experienced. The minimum requirements of a File transfer Application were met and a simple user interface was created for the client. Wireshark was utilized to monitor and ensure that the correct protocol, the File Transfer Protocol, was being utilized and the correct commands were being sent to the server. The final client was tested against three different FTP servers and was proven to produce successful results. The system was analyzed and future development recommendations have been provided.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \begin{thebibliography}{}
 
 %**************************Section**************************%
 
-\bibitem{Kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{FTP}
+Vlajin, B; \emph{What Is FTP? Everything About File Transfer Protocol}; \url{https://www.cloudwards.net/what-is-ftp/}; Last Accessed: 04/05/2019
+
+\bibitem{WIRED}
+Statz, P; \emph{FTP for Beginners|WIRED}; \url{https://www.wired.com/2010/02/ftp_for_beginners/}; Last Accessed: 04/05/2019
+
+\bibitem{RFC959}
+Postel, J; Reynolds, J; \emph{File Transfer Protocol (FTP)}; Network Working Group; October 1985
+
+\bibitem{socket}
+Python; \emph{socket — Low-level networking interface — Python 3.7.3 documentation}; \url{https://docs.python.org/3/library/socket.html}; Last Accessed: 04/05/2019
+
+\bibitem{os}
+Python; \emph{os — Miscellaneous operating system interfaces — Python 3.7.3 documentation}; \url{https://docs.python.org/3/library/os.html?highlight=os#module-os}; Last Accessed: 04/05/2019
+
+\bibitem{passive}
+Ribak, J; \emph{Active FTP vs. Passive FTP, a Definitive Explanation}; \url{https://slacksite.com/other/ftp.html}; Last Accessed: 04/05/2019
 
 \end{thebibliography}
+
+\onecolumn
+\begin{appendices}
+
+\section{Designed GUI}
+\label{app: GUI}
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.8]{GUI.png}
+\caption{Designed GUI in \code{PyQt5}}
+\label{fig: GUI}
+\end{figure}
+
+
+\pagebreak
+\section{Implemented Commands and Reply Codes}
+\label{app: Commands}
+
+\pagebreak
+\section{Results}
+\label{app: Results}
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.6]{Server.png}
+\caption{Server log on host \code{10.0.0.7}}
+\label{fig: Server log}
+\end{figure}
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.6]{ServerWireshark.png}
+\caption{Wireshark trace of implemented client (\code{10.0.0.24}) and implemented server (\code{10.0.0.24})}
+\label{fig: Server Wireshark}
+\end{figure}
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.9]{FileZilla.png}
+\caption{FileZilla log}
+\label{fig: FileZilla log}
+\end{figure}
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.8]{FileZillaGUI.png}
+\caption{GUI output of printing the current directories}
+\label{fig: FileZilla GUI}
+\end{figure}
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.55]{WftpWireshark.png}
+\caption{FileZilla log}
+\label{fig: Wftp Wireshark}
+\end{figure}
+
+\begin{figure}[h!]
+\renewcommand{\thefigure}{\arabic{figure}}
+\centering
+\includegraphics[scale=0.8]{WftpGUI.png}
+\caption{GUI output after downloading a file from the server (\code{demo.wftpserver.com})}
+\label{fig: Wftp GUI}
+\end{figure}
+
+\end{appendices}
 
 %{\tiny \vfill \hfill \today \hspace{5mm} witseie-paper-2003.\TeX}
 
 \end{document}
+
 
