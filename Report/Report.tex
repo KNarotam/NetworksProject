@@ -1,66 +1,105 @@
-\documentclass[10pt,twocolumn]{witseiepaper}
-
-\usepackage{KJN}
+\documentclass[10pt, conference]{IEEEtran}
 \hyphenation{op-tical net-works semi-conduc-tor}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{url}
 \usepackage{amsmath}
-\usepackage{amssymb}
 \usepackage{listings}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{lipsum}
-\usepackage{array,longtable}
-\usepackage{makecell}
 \usepackage{bookmark}
-\usepackage{multicol}
-\usepackage{multirow}
-\pagestyle{plain}
+\usepackage[normalem]{ulem}
 \def\code#1{\texttt{#1}}
+\useunder{\uline}{\ul}{}
+\renewcommand\thesection{\arabic{section}}
 
-%----------------------------------------------------------------------------------------
-%	PDF INFORMATION
-%----------------------------------------------------------------------------------------
-\ifpdf
-\pdfinfo{
-/Title (File Transfer Application)
-/Author (Kishan Narotam (717 931) & Matthew van Rooyen (706 692))
-/CreationDate (04/05/2019)
-/Subject (ELEN4017)
-/Keywords (ELEN4017, Networking, File Transfer Protocol)
-}
-\fi
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textsc{ELEN4017A}}
+\rhead{\textsc{File Transfer Application}}
+\rfoot{Page \thepage\ }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
 %----------------------------------------------------------------------------------------
-%	TITLE
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
 %----------------------------------------------------------------------------------------
 
-\title{FILE TRANSFER APPLICATION\\ELEN4017: Network Fundamentals}
-
-\author{Kishan Y Narotam (717 931) \& Matthew van Rooyen (706 692)
-\thanks{School of Electrical \& Information Engineering, University of the
-Witwatersrand, Private Bag 3, 2050, Johannesburg, South Africa}
-}
-
-
+\textsc{\LARGE University of Witwatersrand}\\[1.5cm] % Name of your university/college
 %----------------------------------------------------------------------------------------
-%	ABSTRACT
+%	LOGO SECTION
 %----------------------------------------------------------------------------------------
-\abstract{The following report presents the design, implementation and testing of a File Transfer Application. The system consists of a server and a client that requires a simple graphical user interface. The system is deemed a success as the minimum requirements stated in RFC 959 were met. The client is able to display and traverse directories and the contents, upload and download various file types to and from the server and responds with the correct response message. The client is tested against multiple FTP servers and Wireshark is used confirm the successful results. The overall system is critically analyzed and its limitations and problems are presented. Future development of the system includes improving the functionality of the client and server.}
 
-\keywords{File Transfer Protocol, Client-Server modal, networking, Wireshark}
-
-
-\maketitle
+\includegraphics[scale=0.25]{Wits.png}% Include a department/university logo - this will require the graphicx package
+ 
+ 
+%----------------------------------------------------------------------------------------
+\textsc{\Large ELEN4017A}\\[0.5cm] % Major heading such as course name
+\textsc{\large Network Fundamentals}\\[0.5cm] % Minor heading such as course title
 
 
 
 %----------------------------------------------------------------------------------------
-%	MAIN BODY OF REPORT
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries File Transfer Application}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+	\emph{Authors:}\\
+	\textsc{Kishan Narotam (717 931)} 
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+	\emph{Authors:} \\
+	\textsc{Matthew van Rooyen (706 692} 
+\end{flushright}
+\end{minipage}\\[1cm]
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large 6\textsuperscript{th} May 2019}\\[2cm] % Date, change the \today to a set date if you want to be precise
+
+%-------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT SECTION
+%----------------------------------------------------------------------------------------
+ 
+ 
+\begin{abstract}
+The following report presents the design, implementation and testing of a File Transfer Application. The system consists of a server and a client that requires a simple graphical user interface. The system is deemed a success as the minimum requirements stated in RFC 959 were met. The client is able to display and traverse directories and the contents, upload and download various file types to and from the server and responds with the correct response message. The client is tested against multiple FTP servers and Wireshark is used confirm the successful results. The overall system is critically analyzed and its limitations and problems are presented. Future development of the system includes improving the functionality of the client and server.
+\end{abstract}
+\textbf{Key words:}File Transfer Protocol, Client-Server modal, networking, Wireshark
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+%----------------------------------------------------------------------------------------
+
 \section{INTRODUCTION}
 \label{sec: Introduction}
 The File Transfer Protocol (FTP) is a set of systemic rules that allow networked computers to communicate with one another on the basis of a client-server model~\cite{FTP}. The protocol communicates over a TCP/IP network and is used to transfer files to and from one another~\cite{WIRED}. The objectives of FTP are to promote sharing of computer programs and/or data; utilize the use of programs on remote computers; to protect a user from variations in file storage systems among hosts; and to have reliable data transfer that includes efficiency~\cite{RFC959}.
@@ -83,8 +122,6 @@ The server has been implemented using a number of FTP commands in accordance wit
 The server data transfer process (DTP) establishes a communication channel with the user through which data can be transferred. This is achieved by creating a channel with the "listening" data port. This then allows the transfer and storage of various file types and instructions to take place according to the commands received by the server PI. The DTP can exist in two states: namely passive and active. Passive state simply listens and for a connection on the server's data port while active state inititates a connection between the data port and the user.
 
 Through this model, a number of FTP commands can be handled in order to obtain functionality and compatibility with the client FTP service. The commands implemented by the FTP server are subdivided into three categories each focusing on a specific component of the client-server communication process\cite{RFC959}. The first of these commands are known as \textbf{Access Control Commands} which allow the server to authenticate the user through access control identifiers. Once authenticated, a unique file repository can be set up with restricted access. This is followed by \textbf{Transfer Parameter Commands} providing the framework through which data will be transferred. The commands involve specifying the port, file structure, mode of transfer and type of file being transferred as well as controlling the state of operation of the server DTP. Finally the \textbf{FTP Service Commands} provide the client with upload/download capabilities between the local and remote directories.
-
-%These commands served as the fundamental concepts on which the server framework was implemented. The designed FTP server was hosted and run locally using the users local IP address as well as using \textit{FileZilla}, an open source application with FTP capabilities. The server also implemented multi-threading in order to facilitate multiple client connections simultaneously. This allowed for the concurrent upload and download of files through multiple data connections. 
 
 \subsection{FTP Client}
 \label{sec: FTP Client}
@@ -111,7 +148,6 @@ Due to complexity in programming, the feature to change a file structure is not 
 %
 \section{COMMANDS AND REPLIES}
 \label{sec: Commands and Replies}
-
 FTP replies to client commands are structured in such a way that all file transfer requests and actions are achieved in a synchronous fashion. The details of each reply are made explicit to the user using a 3 digit code followed by text indicating the nature of the reply message. Each digit is of special significance in the reply with the first digit indicating a successful, unsuccessful or incomplete response. The second digit provides an indication as to the type of error that occurred with the 3rd digit providing extra clarification as to what action should be taken next.
 
 The state of the reply codes are grouped according to the first digit in the following way:
@@ -124,18 +160,8 @@ The state of the reply codes are grouped according to the first digit in the fol
 	5yx	\> Permanent Negative Completion reply
 \end{tabbing} 
 
-%The function groups which the reply codes relate to are encoded in the second digit as follows: 
-%\begin{tabbing}
-%	\hspace{4em}\=\kill
-%	x0z	\> Syntax \\ 
-%	x1z	\> Information\\ 
-%	x2z	\> Connections\\ 
-%	x3z	\> Authentication and Accounting \\ 
-%	x4z	\> Unspecified as yet \\
-%	x5z \> File System
-%\end{tabbing} 
 
-A number of varying reply codes have been implemented according to the reply code structures given. All implemented messages and the reply codes are given in \tabref{tab:commands}. The table also contains a brief description of each reply code.
+A number of varying reply codes have been implemented according to the reply code structures given. All implemented messages and the reply codes are given in Table~\ref{tab} in Appendix~\ref{app: Commands}. The table also contains a brief description of each reply code.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -143,7 +169,7 @@ A number of varying reply codes have been implemented according to the reply cod
 \label{sec: Implementation}
 The server and client were both implemented using the programming language \code{Python}, specifically \code{Python 3}. Both client and server utilize the \code{socket} module that allows the user to access the BSD socket interface in the operating system~\cite{socket}. The communication between the client and server utilizes this module. The \code{os} module allows the user to use the operating system dependent functionality~\cite{os}. This module gave the user the ability to traverse and view the directories and the respective files.
 
-Since FTP communicates over a TCP/IP connection, this type of connection needs to be established. When commands are sent from the client to the server, these need to be formatted in a way that the server can understand and decode. For this reason, UTF-8 encoding was used for universal communication. An example of how the commands are formatted and sent can be seen in Figure~\ref{fig: Communication}, where the respective ``['' ``]'' should be ignored and \code{\textbackslash r\textbackslash n} behave as a terminator of the command.
+Since FTP communicates over a TCP/IP connection, this type of connection needs to be established. When commands are sent from the client to the server, these need to be formatted in a way that the server can understand and decode. For this reason, UTF-8 encoding was used for universal communication. An example of how the commands are formatted and sent can be seen in Figure~\ref{fig: Communication}, where the respective ``\code{[}'' ``\code{]}'' should be ignored and \code{\textbackslash r\textbackslash n} behave as a terminator of the command.
 
 \begin{figure}[h!]
 \renewcommand{\thefigure}{\arabic{figure}}
@@ -153,20 +179,17 @@ Since FTP communicates over a TCP/IP connection, this type of connection needs t
 \label{fig: Communication}
 \end{figure}
 
-
 \subsection{Server Implementation}
 \label{sec: Server Implementation}
 The FTP server was hosted locally using the user's IP address to allow FTP clients to connect to the server across a range of networks. In order to establish FTP client connections, the server makes use of a \texttt{serverListener()} function configured to "listen" across a number of different sockets. In order to allow for multiple connections to be handled simultaneously, each new connection was bound to a thread using the \texttt{bind} function. Threads were initialized in passive mode allowing for the transmission of data when a client connection occurs. A command received from the FTP client is decoded and authorized before being executed. Depending on the result of the command, a reply code is then encoded and returned before the next command can be active. The reply codes were selected according to the code structure given in Section~\ref{sec: Commands and Replies}.
 
-\subsubsection*{Authentication:}
+\subsubsection{Authentication:}
 A number of commands were implemented in order to control access and configuration of the file structure for each individual client. The server contains a user management system achieved through the authentication of each FTP client. \texttt(USER()) and \texttt(PASS()) allows the server to accept unique user name and passwords in order to ascertain what file repository's the user has access to. This allows each user to instantiate a file structure that is unique to their credentials. The \texttt(QUIT) command provided the client with a method of ending the current session with the wholsale changes made during the period being maintained.
 
-\subsubsection*{Server Configuration:}
-
+\subsubsection{Server Configuration:}
 A range of configuration commands were used in order to facilitate client-server interaction. The server utilities the \texttt{os module} to control file directory operations, providing cross-platform integration\cite{os}. \texttt{PORT} command specifies the data port number used by the client in order to create a data connection. \texttt{PASV} command was used to instantiate passive mode with the server listening for the client connections in order to enable the data transfer between the two entities.
 
-\subsubsection*{File Configuration:}
-
+\subsubsection{File Configuration:}
 \texttt{STRU} command allowed the client to customize the file structure within the specified repository. Due to compatibility issues when hosting the server locally, the default file structure was set to page structure(P). The server catered for a number of commands allowing the client to traverse the specified file structure. The \texttt{PWD} and \texttt{LIST} commands allowed the user to display comprehensive information pertaining to both the remote and local repositories. \texttt{CWD} allowed the client to change the path with which the files were being accessed. File transfer types were indicated using the \texttt{TYPE} command allowing the user to specify ASCII (TYPE A) or IMAGE (TYPE I) type when transferring the file. \texttt{STOR} and \texttt{RETR} facilitated the uploading and downloading of files respectively. This was achieved through the streaming of data in specified bytes during the transmission of the given file. A ping test was created using the \texttt{NOOP} command in order to determine the rate at which a file was being transmitted. Finally, the \texttt{HELP} command was added to the server capabilities allowing the user to access the list of commands available to them.
 
 \subsection{Client Implementation}
@@ -175,7 +198,7 @@ The FTP client was first developed as a terminal-type system, with all responses
 
 \subsubsection{Connection to the Server}
 \label{sec: Connection to server}
-The first step in implementing the FTP client was to secure a connection with the server. In order for the client to connect, the IP address and port number of the server must be known before the connection can be initiated. Since the purpose of the connection is for FTP, the port number utilized is set to \code{21}. In order to communicate with the server, a \code{send()} function was created that will send the commands to the server as per Figure~\ref{fig: Communication}.
+The first step in implementing the FTP client was to secure a connection with the server. In order for the client to connect, the IP address and port number of the server must be known before the connection can be initiated. Since the purpose of the connection is for FTP, the port number utilized is set to \code{21}. In order to communicate with the server, a \code{send()} function was created that will send the commands to the server as per the previously stated.
 
 With a half duplex communication channel set up, the client required a \code{receive()} function that  could return the message sent from the server. These responses from the server are printed to the command window, and in the GUI the display window, so that the user can respond accordingly. To ensure that the message or command would be sent first then received a function that confined these functions to the correct order was created, aptly named \code{combinedSendReceive()}.
 
@@ -270,20 +293,17 @@ The client and server both make use of a class based code structure. The server 
 
 \subsection{System Prerequisites}
 \label{sec: System Prerequisites}
-The server and client require \code{Python 3} and were implemented on Windows 10 operating systems. Many external modules were utilized to ensure a functional client interface from \code{Python 3}. The \code{PyQT5} module was chosen as this is one of the available interface modules that gave minimal complexity and allowed for the simple interface implemented for the client. Furthermore, this module is compatible with \code{Python 3}. In order to execute the programs, one would need to install the relevant modules by typing the following in the terminal (cmd):
-\code{pip install pyqt5}
+The server and client require \code{Python 3} and were implemented on Windows 10 operating systems. Many external modules were utilized to ensure a functional client interface from \code{Python 3}. The \code{PyQT5} module was chosen as this is one of the available interface modules that gave minimal complexity and allowed for the simple interface implemented for the client. Furthermore, this module is compatible with \code{Python 3}. In order to execute the programs, one would need to install the relevant modules by typing the following in the terminal (cmd): \code{pip install pyqt5}
 
-The server can be started by typing the following command in the terminal:
-\code{python FTPserver.py}
+The server can be started by typing the following command in the terminal: \code{python FTPserver.py}
 
-The client can be started by using the following command in the terminal:
-\code{python -u ClientInterface.py}
+The client can be started by using the following command in the terminal: \code{python -u ClientInterface.py}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \section{CONCLUSION}
 \label{sec: Conclusion}
-The design, implementation and testing of a File Transfer Application has been presented. The overall system was regarded as a success regardless of minor problems experienced. The minimum requirements of a File transfer Application were met and a simple user interface was created for the client. Wireshark was utilized to monitor and ensure that the correct protocol, the File Transfer Protocol, was being utilized and the correct commands were being sent to the server. The final client was tested against three different FTP servers and was proven to produce successful results. The system was analyzed and future development recommendations have been provided.
+the design, implementation and testing of a File Transfer Application has been presented. The overall system was regarded as a success regardless of minor problems experienced. The minimum requirements of a File transfer Application were met and a simple user interface was created for the client. Wireshark was utilized to monitor and ensure that the correct protocol, the File Transfer Protocol, was being utilized and the correct commands were being sent to the server. The final client was tested against three different FTP servers and was proven to produce successful results. The system was analyzed and future development recommendations have been provided.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,48 +349,32 @@ Ribak, J; \emph{Active FTP vs. Passive FTP, a Definitive Explanation}; \url{http
 \pagebreak
 \section{Implemented Commands and Reply Codes}
 \label{app: Commands}
-\begin{longtable}{|p{2cm}|p{7cm}|p{8cm}|}
-	\hline 
-	\textbf{Command} & \textbf{Description} & \textbf{Reply Code}
-	\hline 		
-	USER & User identification needed by server before providing access to file system  &  501 Syntax error in parameters or arguments. 331 User name okay, need password. \tabularnewline
-	\hline 
-	PASS & Authenticates user password & \makecell[l]{501 Syntax error in parameters or arguments.\\503 Bad sequence of commands. \tabularnewline 230 User logged in, proceed.} \tabularnewline 
-	\hline 
-	CWD	& Changes working directory to new directory specified user  & \makecell[l]{550 Requested action not taken. \\File unavailable \\250 Requested file action okay, completed.} \\ 
-	\hline
-	CDUP	& Changes the working directory to home directory. & 200 Command okay. \\ 
-	\hline 
-	QUIT	& Terminates a user connection &  221 Service closing control connection. Goodbye\\ 
-	\hline 
-	PORT	& Specifies the data port to be used during data transmission & 200 Command okay. Get Port \\ 
-	\hline 
-	PASV	& Requests the DTP server listen on the specified data port & 227 Entering Passive Mode\\ 
-	\hline
-	TYPE	& Specifies the file type to be retrieved or stored & \makecell[l]{200 Command okay. \\501 Syntax error in parameters or arguments.}\\ 
-	\hline  
-	STRU	& Specifies the file structure to be retrieved or stored  & \makecell[l]{200 Command okay. \\502 Command not implemented.} \\ 
-	\hline 
-	MODE	& Specifies data transfer modes for transmission & \makecell[l]{200 Command okay. \\502 Command not implemented. \\501 Syntax error in parameters or arguments.} \\ 
-	\hline 
-	LIST & Returns a list of the contents of a specified directory. The list contains the type of files included in the directory. &\makecell[l]{530 User not logged in. \\550 Requested action not taken. \\ File unavailable \\150 File status okay; about to open data connection. \\226 Closing data connection.\\ Requested file action successful}\\ 
-	\hline   
-	PWD	& Returns the current working directory & 257 PATHNAME created \\ 
-	\hline 
-	DELE	& Deletes a file at the specified remote host location & \makecell[l]{530 Not logged in. \\550 Requested action not taken. File unavailable \\450 Requested file action not taken. File busy \\250 Requested file action okay, completed.} \\ 
-	\hline 
-	RETR	& Enables the download capabilities of the specified file name &  \makecell[l]{150 File status okay; about to open data connection. \\226 Transfer complete.} \\ 
-	\hline 
-	STOR	& Enables the upload capabilities of the specified file name &  \makecell[l]{530 Not logged in. \\150 File status okay; about to open data connection. \\226 Transfer completed.} \\ 
-	\hline 
-	NOOP	& Gives the client ping capabilities when attempting to access the server & 200 Command okay. \\ 
-	\hline 
-	HELP	& Displays a list of possible commands which can be handled by the server &  \\ 
-	\hline 
 
-	\caption{Table detailing the implemented commands and reply codes}	
-		\label{tab:commands}
-\end{longtable}
+
+\begin{table}[h!]
+\caption{Table detailing the implemented commands and reply codes}
+\label{tab}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{{\ul \textbf{Command}}} & \multicolumn{1}{c|}{{\ul \textbf{Description}}} & \multicolumn{1}{c|}{{\ul \textbf{Reply Code}}} \\ \hline
+USER & User identification needed by server before providing access to file system & \begin{tabular}[c]{@{}l@{}}501 Syntax error in parameters or arguments.\\ 331 User name okay, need password.\end{tabular} \\ \hline
+PASS & Authenticates user password & \begin{tabular}[c]{@{}l@{}}501 Syntax error in parameters or arguments.\\ 503 Bad sequence of commands. \\ 230 User logged in, proceed.\end{tabular} \\ \hline
+CWD & Changes working directory to new directory specified user & \begin{tabular}[c]{@{}l@{}}550 Requested action not taken. File unavailable\\ 250 Requested file action okay, completed.\end{tabular} \\ \hline
+CDUP & Changes the working directory to home directory. & 200 Command okay. \\ \hline
+QUIT & Terminates a user connection & 221 Service closing control connection. Goodbye \\ \hline
+PORT & Specifies the data port to be used during data transmission & 200 Command okay. Get Port \\ \hline
+PASV & Requests the FTP server listen on the specified data port & 227 Entering Passive Mode \\ \hline
+TYPE & Specifies the file type to be retrieved or stored & \begin{tabular}[c]{@{}l@{}}200 Command okay.\\ 501 Syntax error in parameters or arguments.\end{tabular} \\ \hline
+STRU & Specifies the file structure to be retrieved or stored & \begin{tabular}[c]{@{}l@{}}200 Command okay.\\ 502 Command not implemented.\end{tabular} \\ \hline
+MODE & Specifies data transfer modes for transmission & \begin{tabular}[c]{@{}l@{}}200 Command okay. \\ 502 Command not implemented.\\ 501 Syntax error in parameters or arguments.\end{tabular} \\ \hline
+LIST & \begin{tabular}[c]{@{}l@{}}Returns a list of the contents of a specified directory.\\ The list contains the type of files included in the directory.\end{tabular} & \begin{tabular}[c]{@{}l@{}}530 User not logged in.\\ 550 Requested action not taken. File unavailable\\ 150 File status okay; about to open data connection.\\ 226 Closing data connection. Requested file action successful\end{tabular} \\ \hline
+PWD & Returns the current working directory & 257 PATHNAME created \\ \hline
+RETR & Enables the download capabilities of the specified file name & \begin{tabular}[c]{@{}l@{}}150 File status okay; about to open data connection.\\ 226 Transfer complete.\end{tabular} \\ \hline
+STOR & Enables the upload capabilities of the specified file name & \begin{tabular}[c]{@{}l@{}}530 Not logged in.\\ 150 File status okay; about to open data connection.\\ 226 Transfer completed.\end{tabular} \\ \hline
+NOOP & Gives the client ping capabilities when attempting to access the server & 200 Command okay \\ \hline
+\end{tabular}
+\end{table}
+
 \pagebreak
 \section{Results}
 \label{app: Results}
@@ -424,9 +428,7 @@ Ribak, J; \emph{Active FTP vs. Passive FTP, a Definitive Explanation}; \url{http
 \end{figure}
 
 \end{appendices}
-
-%{\tiny \vfill \hfill \today \hspace{5mm} witseie-paper-2003.\TeX}
-
+% that's all folks
 \end{document}
 
 

@@ -1,68 +1,118 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.17)  5 MAY 2019 01:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.17)  5 MAY 2019 20:31
 entering extended mode
 **./Report.tex
 (Report.tex
 LaTeX2e <2017-04-15>
 Babel <3.18> and hyphenation patterns for 75 language(s) loaded.
-(witseiepaper.cls
-Document Style `witseiepaper.cls' <2005/10/14>
-Rev. 1.2.0
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\rawfonts.sty
-"
-Package: rawfonts 1994/05/08 Low-level LaTeX 2.09 font compatibility
 
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\somedefs.sty
-"
-Package: somedefs 1994/06/01 v0.03 Toolkit for optional definitions
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ieeetran\IEEEtran.
+cls"
+Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen102
+\@IEEEtrantmpdimenB=\dimen103
+\@IEEEtrantmpdimenC=\dimen104
+\@IEEEtrantmpcountA=\count79
+\@IEEEtrantmpcountB=\count80
+\@IEEEtrantmpcountC=\count81
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 503.
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 49.
- ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ulasy.fd"
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)) ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\oldlfont.s
-ty"
-Package: oldlfont 2014/09/29 v2.2k Standard LaTeX package
+-- Using 8.5in x 11in (letter) paper.
+-- Using PDF output.
+\@IEEEnormalsizeunitybaselineskip=\dimen105
+-- This is a 10 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen106
+\CLASSINFOnormalsizeunitybaselineskip=\dimen107
+\IEEEnormaljot=\dimen108
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
 
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\tracefnt.sty"
-Package: tracefnt 2015/02/21 v3.0k Standard LaTeX package (font tracing)
-\tracingfonts=\count79
-LaTeX Info: Redefining \selectfont on input line 106.
-)
-\symbold=\mathgroup4
-\symsans=\mathgroup5
-\symtypewriter=\mathgroup6
-\symitalic=\mathgroup7
-\symsmallcaps=\mathgroup8
-\symslanted=\mathgroup9
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 61.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 62.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 63.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 69.
-LaTeX Info: Redefining \em on input line 79.
- ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\latexsym.sty
-"
-Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
-\symlasy=\mathgroup10
-LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
-(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
-))
--- This is a 10 point document
-\tmpitemindent=\dimen102
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\captionindent=\skip41
-\c@figure=\count84
-\c@table=\count85
-) (KJN.sty
-Package: KJN 2005/10/12 Additional packages, commands, etc for KJN
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
 
-Document Style `KJN.sty' <2005/10/12>
-Rev. 1.1.0
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
 
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.s
-ty"
-Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+\IEEEquantizedlength=\dimen109
+\IEEEquantizedlengthdiff=\dimen110
+\IEEEquantizedtextheightdiff=\dimen111
+\IEEEilabelindentA=\dimen112
+\IEEEilabelindentB=\dimen113
+\IEEEilabelindent=\dimen114
+\IEEEelabelindent=\dimen115
+\IEEEdlabelindent=\dimen116
+\IEEElabelindent=\dimen117
+\IEEEiednormlabelsep=\dimen118
+\IEEEiedmathlabelsep=\dimen119
+\IEEEiedtopsep=\skip41
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@IEEEsubequation=\count86
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count87
+\c@table=\count88
+\@IEEEeqnnumcols=\count89
+\@IEEEeqncolcnt=\count90
+\@IEEEsubeqnnumrollback=\count91
+\@IEEEquantizeheightA=\dimen120
+\@IEEEquantizeheightB=\dimen121
+\@IEEEquantizeheightC=\dimen122
+\@IEEEquantizeprevdepth=\dimen123
+\@IEEEquantizemultiple=\count92
+\@IEEEquantizeboxA=\box26
+\@IEEEtmpitemindent=\dimen124
+\IEEEPARstartletwidth=\dimen125
+\c@IEEEbiography=\count93
+\@IEEEtranrubishbin=\box27
 )
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphicx.
 sty"
@@ -71,7 +121,7 @@ Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\keyval.st
 y"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks14
+\KV@toks@=\toks15
 )
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\graphics.
 sty"
@@ -90,8 +140,194 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 x.def"
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen103
-\Gin@req@width=\dimen104
+\Gin@req@height=\dimen126
+\Gin@req@width=\dimen127
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.
+sty"
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip44
+\f@nch@O@elh=\skip45
+\f@nch@O@erh=\skip46
+\f@nch@O@olh=\skip47
+\f@nch@O@orh=\skip48
+\f@nch@O@elf=\skip49
+\f@nch@O@erf=\skip50
+\f@nch@O@olf=\skip51
+\f@nch@O@orf=\skip52
+) ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsmath.st
+y"
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip53
+
+For additional information on amsmath, use the `?' option.
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amstext.st
+y"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty
+"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks16
+\ex@=\dimen128
+))
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty
+"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen129
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty
+"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen130
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
+\dotsspace@=\muskip11
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
+\tag@help=\toks17
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
+\andhelp@=\toks18
+\eqnshift@=\dimen131
+\alignsep@=\dimen132
+\tagshift@=\dimen133
+\tagwidth@=\dimen134
+\totwidth@=\dimen135
+\lineht@=\dimen136
+\@envbody=\toks19
+\multlinegap=\skip54
+\multlinetaggap=\skip55
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\listings.
+sty"
+\lst@mode=\count106
+\lst@gtempboxa=\box30
+\lst@token=\toks21
+\lst@length=\count107
+\lst@currlwidth=\dimen137
+\lst@column=\count108
+\lst@pos=\count109
+\lst@lostspace=\dimen138
+\lst@width=\dimen139
+\lst@newlines=\count110
+\lst@lineno=\count111
+\lst@maxwidth=\dimen140
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lstmisc.s
+ty"
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count112
+\lst@skipnumbers=\count113
+\lst@framebox=\box31
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\listings.
+cfg"
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithms\algorit
+hm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count114
+\float@exts=\toks22
+\float@box=\box32
+\@float@everytoks=\toks23
+\@floatcapt=\box33
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks24
+\c@algorithm=\count115
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithms\algorit
+hmic.sty"
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count116
+\c@ALC@line=\count117
+\c@ALC@rem=\count118
+\c@ALC@depth=\count119
+\ALC@tlm=\skip56
+\algorithmicindent=\skip57
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty"
+Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
+\c@lips@count=\count120
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\bookmark.
+sty"
+Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdfesca
+pe.sty"
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds
+.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\pdftexc
+mds.sty"
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\infware
+rr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifluate
+x.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.s
+ty"
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.
+sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.
+sty"
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
 )
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hyperref.
 sty"
@@ -106,12 +342,10 @@ Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 generic.sty"
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
-Package ifvtex Info: VTeX not detected.
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 Package hobsub Info: Skipping package `ifpdf' (already loaded).
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
@@ -121,13 +355,8 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
+Package hobsub Info: Skipping package `pdfescape' (already loaded).
 Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
 Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
@@ -143,10 +372,6 @@ Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.
-sty"
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\auxhook.s
 ty"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
@@ -155,24 +380,20 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 .sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen105
-\Hy@linkcounter=\count86
-\Hy@pagecounter=\count87
+\@linkdim=\dimen141
+\Hy@linkcounter=\count121
+\Hy@pagecounter=\count122
 
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\pd1enc.de
 f"
 File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count88
+\Hy@SavedSpaceFactor=\count123
 
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\00miktex\hyperref.
 cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-
-Package hyperref Warning: Option `a4paper' is no longer used.
-
-Package hyperref Info: Option `colorlinks' set `true' on input line 4383.
 Package hyperref Info: Hyper figures OFF on input line 4509.
 Package hyperref Info: Link nesting OFF on input line 4514.
 Package hyperref Info: Hyper index ON on input line 4517.
@@ -180,36 +401,32 @@ Package hyperref Info: Plain pages OFF on input line 4524.
 Package hyperref Info: Backreferencing OFF on input line 4529.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4762.
-\c@Hy@tempcnt=\count89
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\url.sty"
-\Urlmuskip=\muskip10
-Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)
+\c@Hy@tempcnt=\count124
 LaTeX Info: Redefining \url on input line 5115.
-\XeTeXLinkMargin=\dimen106
-\Fld@menulength=\count90
-\Field@Width=\dimen107
-\Fld@charsize=\dimen108
+\XeTeXLinkMargin=\dimen142
+\Fld@menulength=\count125
+\Field@Width=\dimen143
+\Fld@charsize=\dimen144
 Package hyperref Info: Hyper figures OFF on input line 6369.
 Package hyperref Info: Link nesting OFF on input line 6374.
 Package hyperref Info: Hyper index ON on input line 6377.
 Package hyperref Info: backreferencing OFF on input line 6384.
-Package hyperref Info: Link coloring ON on input line 6387.
+Package hyperref Info: Link coloring OFF on input line 6389.
 Package hyperref Info: Link coloring with OCG OFF on input line 6394.
 Package hyperref Info: PDF/A mode OFF on input line 6399.
 LaTeX Info: Redefining \ref on input line 6439.
 LaTeX Info: Redefining \pageref on input line 6443.
-\Hy@abspage=\count91
-\c@Item=\count92
-\c@Hfootnote=\count93
+\Hy@abspage=\count126
+\c@Item=\count127
+\c@Hfootnote=\count128
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\hpdftex.d
 ef"
 File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
-\Fld@listcount=\count94
-\c@bookmark@seq@number=\count95
+\Fld@listcount=\count129
+\c@bookmark@seq@number=\count130
 
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\rerunfile
 check.sty"
@@ -217,222 +434,59 @@ Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip42
+\Hy@SectionHShift=\skip58
 )
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tools\xspace.sty"
-Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
-) ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\natbib\natbib.st
-y"
-Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip43
-\bibsep=\skip44
-LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count96
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\preprint\balance.s
-ty"
-Package: balance 1999/02/23 4.3 (PWD)
-\oldvsize=\dimen109
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\generic\beebe\texnames.s
-ty"
-This is texnames.sty, Version 1.09 <16 March 1993>
-)
-\c@thrm=\count97
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.
-sty"
-Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
-s
-\f@nch@headwidth=\skip45
-\f@nch@O@elh=\skip46
-\f@nch@O@erh=\skip47
-\f@nch@O@olh=\skip48
-\f@nch@O@orh=\skip49
-\f@nch@O@elf=\skip50
-\f@nch@O@erf=\skip51
-\f@nch@O@olf=\skip52
-\f@nch@O@orf=\skip53
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsmath.st
-y"
-Package: amsmath 2017/09/02 v2.17a AMS math features
-\@mathmargin=\skip54
-
-For additional information on amsmath, use the `?' option.
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amstext.st
-y"
-Package: amstext 2000/06/29 v2.01 AMS text
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty
-"
-File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks15
-\ex@=\dimen110
-))
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty
-"
-Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen111
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty
-"
-Package: amsopn 2016/03/08 v2.02 operator names
-)
-\inf@bad=\count98
-LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count99
-\leftroot@=\count100
-LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count101
-\DOTSCASE@=\count102
-LaTeX Info: Redefining \ldots on input line 472.
-LaTeX Info: Redefining \dots on input line 475.
-LaTeX Info: Redefining \cdots on input line 596.
-\Mathstrutbox@=\box26
-\strutbox@=\box27
-\big@size=\dimen112
-LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count103
-\c@MaxMatrixCols=\count104
-\dotsspace@=\muskip11
-\c@parentequation=\count105
-\dspbrk@lvl=\count106
-\tag@help=\toks16
-\row@=\count107
-\column@=\count108
-\maxfields@=\count109
-\andhelp@=\toks17
-\eqnshift@=\dimen113
-\alignsep@=\dimen114
-\tagshift@=\dimen115
-\tagwidth@=\dimen116
-\totwidth@=\dimen117
-\lineht@=\dimen118
-\@envbody=\toks18
-\multlinegap=\skip55
-\multlinetaggap=\skip56
-\mathdisplay@stack=\toks19
-LaTeX Info: Redefining \[ on input line 2817.
-LaTeX Info: Redefining \] on input line 2818.
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\amssymb.s
-ty"
-Package: amssymb 2013/01/14 v3.01 AMS font symbols
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.
-sty"
-Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup11
-\symAMSb=\mathgroup12
-LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\listings.
-sty"
-\lst@mode=\count110
-\lst@gtempboxa=\box28
-\lst@token=\toks20
-\lst@length=\count111
-\lst@currlwidth=\dimen119
-\lst@column=\count112
-\lst@pos=\count113
-\lst@lostspace=\dimen120
-\lst@width=\dimen121
-\lst@newlines=\count114
-\lst@lineno=\count115
-\abovecaptionskip=\skip57
-\belowcaptionskip=\skip58
-\lst@maxwidth=\dimen122
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lstmisc.s
-ty"
-File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count116
-\lst@skipnumbers=\count117
-\lst@framebox=\box29
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\listings.
-cfg"
-File: listings.cfg 2015/06/04 1.6 listings configuration
-))
-Package: listings 2015/06/04 1.6 (Carsten Heinz)
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithms\algorit
-hm.sty"
-Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
-nment
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\float\float.sty"
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count118
-\float@exts=\toks21
-\float@box=\box30
-\@float@everytoks=\toks22
-\@floatcapt=\box31
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\ifthen.sty"
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
-)
-\@float@every@algorithm=\toks23
-\c@algorithm=\count119
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algorithms\algorit
-hmic.sty"
-Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
-\c@ALC@unique=\count120
-\c@ALC@line=\count121
-\c@ALC@rem=\count122
-\c@ALC@depth=\count123
-\ALC@tlm=\skip59
-\algorithmicindent=\skip60
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lipsum\lipsum.sty"
-Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
-\c@lips@count=\count124
-)
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\bookmark.
-sty"
-Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
-
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\bkm-pdfte
 x.def"
 File: bkm-pdftex.def 2016/05/17 v1.26 bookmark driver for pdfTeX (HO)
-\BKM@id=\count125
-)) (Report.aux)
+\BKM@id=\count131
+))
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ulem\ulem.sty"
+\UL@box=\box34
+\UL@hyphenbox=\box35
+\UL@skip=\skip59
+\UL@hook=\toks25
+\UL@height=\dimen145
+\UL@pe=\count132
+\UL@pixel=\dimen146
+\ULC@box=\box36
+Package: ulem 2012/05/18
+\ULdepth=\dimen147
+)
+(Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+
+-- Lines per column: 56 (exact).
 
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-pdf.mk
 ii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count126
-\scratchdimen=\dimen123
-\scratchbox=\box32
-\nofMPsegments=\count127
-\nofMParguments=\count128
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count129
-\MPscratchDim=\dimen124
-\MPnumerator=\count130
-\makeMPintoPDFobject=\count131
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count133
+\scratchdimen=\dimen148
+\scratchbox=\box37
+\nofMPsegments=\count134
+\nofMParguments=\count135
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count136
+\MPscratchDim=\dimen149
+\MPnumerator=\count137
+\makeMPintoPDFobject=\count138
+\everyMPtoPDFconversion=\toks27
 )
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-
 base.sty"
@@ -449,23 +503,9 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-\AtBeginShipoutBox=\box33
-
-
-Package hyperref Warning: Height of page (\paperheight) is invalid (0.0pt),
-(hyperref)                using 11in.
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\color.sty
-"
-Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg\color
-.cfg"
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 147.
-)
-Package hyperref Info: Link coloring ON on input line 32.
+\c@lstlisting=\count139
+\AtBeginShipoutBox=\box38
+Package hyperref Info: Link coloring OFF on input line 24.
 
 ("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.s
 ty"
@@ -475,334 +515,167 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 estring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count132
+\c@section@level=\count140
 )
-LaTeX Info: Redefining \ref on input line 32.
-LaTeX Info: Redefining \pageref on input line 32.
-LaTeX Info: Redefining \nameref on input line 32.
-\c@lstlisting=\count133
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 55.
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
+LaTeX Info: Redefining \nameref on input line 24.
+<Wits.png, id=3, 559.08875pt x 613.29124pt>
+File: Wits.png Graphic file (type png)
+<use Wits.png>
+Package pdftex.def Info: Wits.png  used on input line 41.
+(pdftex.def)             Requested size: 139.77184pt x 153.32243pt.
+ [0
 
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [1{C:/Users/knaro/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
-
+{C:/Users/knaro/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./Wits.png>
+] [1
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 113
-.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 113.
-LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbackslash' on input line 113.
-
-Overfull \hbox (26.38147pt too wide) in paragraph at lines 143--144
-\OT1/cmr/m/n/10 rec-tory is ob-tained through the func-tion \OT1/cmtt/m/n/10 lo
-calDirectory()\OT1/cmr/m/n/10 .
- []
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 170.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
- has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.146 
-      ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [3]
-LaTeX Font Info:    Try loading font information for U+msa on input line 193.
-
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 193.
-("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 172.
+
+("C:\Users\knaro\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\omspcr.fd"
+File: omspcr.fd 
 )
-Underfull \vbox (badness 6978) has occurred while \output is active []
-
-
-Underfull \hbox (badness 4792) in paragraph at lines 229--231
-[]\OT1/cmr/m/n/10 The client can be started by us-ing the fol-
+LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 172.
+[2]
+Underfull \hbox (badness 5954) in paragraph at lines 211--212
+[]\OT1/ptm/m/n/10 The server di-rec-tory is pre-sented by the func-tion
  []
 
+[3] [4]
+Missing character: There is no â in font ptmri7t!
+Missing character: There is no € in font ptmri7t!
+Missing character: There is no ” in font ptmri7t!
+Missing character: There is no â in font ptmri7t!
+Missing character: There is no € in font ptmri7t!
+Missing character: There is no ” in font ptmri7t!
+Missing character: There is no â in font ptmri7t!
+Missing character: There is no € in font ptmri7t!
+Missing character: There is no ” in font ptmri7t!
+Missing character: There is no â in font ptmri7t!
+Missing character: There is no € in font ptmri7t!
+Missing character: There is no ” in font ptmri7t!
 
-Underfull \hbox (badness 4779) in paragraph at lines 229--231
-\OT1/cmr/m/n/10 low-ing com-mand in the ter-mi-nal: \OT1/cmtt/m/n/10 python -u
- []
-
-
-Underfull \hbox (badness 2269) in paragraph at lines 246--247
-[]\OT1/cmr/m/n/10 Vlajin, B; \OT1/cmr/m/it/10 What Is FTP? Ev-ery-thing About
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
-\OT1/cmtt/m/n/10 www . wired . com / 2010 / 02 / ftp _ for _ beginners/$[][]\OT
-1/cmr/m/n/10 ;
- []
-
-Missing character: There is no â in font cmti10!
-Missing character: There is no € in font cmti10!
-Missing character: There is no ” in font cmti10!
-Missing character: There is no â in font cmti10!
-Missing character: There is no € in font cmti10!
-Missing character: There is no ” in font cmti10!
-
-Underfull \hbox (badness 3271) in paragraph at lines 255--256
-[]\OT1/cmr/m/n/10 Python; \OT1/cmr/m/it/10 socket  Low-level net-work-ing in-te
-r-
- []
-
-
-Underfull \hbox (badness 1810) in paragraph at lines 255--256
-\OT1/cmtt/m/n/10 python . org / 3 / library / socket . html$[][]\OT1/cmr/m/n/10
- ; Last Ac-
- []
-
-Missing character: There is no â in font cmti10!
-Missing character: There is no € in font cmti10!
-Missing character: There is no ” in font cmti10!
-Missing character: There is no â in font cmti10!
-Missing character: There is no € in font cmti10!
-Missing character: There is no ” in font cmti10!
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--259
-[]\OT1/cmr/m/n/10 Python; \OT1/cmr/m/it/10 os  Mis-cel-la-neous op-er-at-ing sy
-s-
- []
-
-
-Underfull \hbox (badness 4621) in paragraph at lines 258--259
-\OT1/cmr/m/it/10 tem in-ter-faces  Python 3.7.3 doc-u-men-ta-tion\OT1/cmr/m/n/1
-0 ;
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--259
-[][]$\OT1/cmtt/m/n/10 https : / / docs . python . org / 3 / library / os .
- []
-
-
-Underfull \hbox (badness 1590) in paragraph at lines 258--259
-\OT1/cmtt/m/n/10 html ? highlight = os # module-[]os$[][]\OT1/cmr/m/n/10 ; Last
- Ac-cessed:
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4]
-Underfull \hbox (badness 3189) in paragraph at lines 261--262
-[]\OT1/cmr/m/n/10 Ribak, J; \OT1/cmr/m/it/10 Ac-tive FTP vs. Pas-sive FTP, a
+Underfull \hbox (badness 3209) in paragraph at lines 328--329
+[]\OT1/ptm/m/n/8 Python; \OT1/ptm/m/it/8 os  Mis-cel-la-neous op-er-at-ing sys-
+tem in-ter-faces  Python
  []
 
 [5
 
-]pdfTeX warning (ext4): destination with the same identifier (name{section.1}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.268 \section{Designed GUI}
-                            
-<GUI.png, id=112, 612.03656pt x 566.115pt>
+]
+<GUI.png, id=127, 612.03656pt x 566.115pt>
 File: GUI.png Graphic file (type png)
 <use GUI.png>
-Package pdftex.def Info: GUI.png  used on input line 273.
+Package pdftex.def Info: GUI.png  used on input line 343.
 (pdftex.def)             Requested size: 489.62991pt x 452.89261pt.
-
-Overfull \hbox (5.93307pt too wide) in paragraph at lines 273--274
- [][] 
- []
-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6
 
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
-s been already used, duplicate ignored
+ <./GUI.png>]
+Overfull \hbox (4.84453pt too wide) in paragraph at lines 357--376
+[][] 
+ []
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.280 \section
-              {Implemented Commands and Reply Codes} <./GUI.png>]pdfTeX warning
- (ext4): destination with the same identifier (name{section.2}) has been alread
-y used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.280 ...ion{Implemented Commands and Reply Codes}
-                                                  
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7]pdfTeX warning (ext4): destination with the same identifier (name{section.3
-}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.284 \section{Results}
-                       
-<Server.png, id=125, 717.10768pt x 443.08392pt>
+ [7]
+<Server.png, id=142, 717.10768pt x 443.08392pt>
 File: Server.png Graphic file (type png)
 <use Server.png>
-Package pdftex.def Info: Server.png  used on input line 290.
+Package pdftex.def Info: Server.png  used on input line 385.
 (pdftex.def)             Requested size: 430.26793pt x 265.8524pt.
-<ServerWireshark.png, id=126, 753.5653pt x 421.575pt>
+<ServerWireshark.png, id=143, 753.5653pt x 421.575pt>
 File: ServerWireshark.png Graphic file (type png)
 <use ServerWireshark.png>
-Package pdftex.def Info: ServerWireshark.png  used on input line 298.
+Package pdftex.def Info: ServerWireshark.png  used on input line 393.
 (pdftex.def)             Requested size: 452.14267pt x 252.94695pt.
-<FileZilla.png, id=127, 568.37344pt x 765.6103pt>
+<FileZilla.png, id=144, 568.37344pt x 765.6103pt>
 File: FileZilla.png Graphic file (type png)
 <use FileZilla.png>
-Package pdftex.def Info: FileZilla.png  used on input line 306.
+Package pdftex.def Info: FileZilla.png  used on input line 401.
 (pdftex.def)             Requested size: 511.53137pt x 689.04291pt.
 
-Overfull \hbox (27.83453pt too wide) in paragraph at lines 306--307
- [][] 
- []
 
-
-LaTeX Warning: Float too large for page by 16.46844pt on input line 309.
+LaTeX Warning: Float too large for page by 40.37488pt on input line 404.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<FileZillaGUI.png, id=128, 610.53094pt x 564.60938pt>
+<FileZillaGUI.png, id=145, 610.53094pt x 564.60938pt>
 File: FileZillaGUI.png Graphic file (type png)
 <use FileZillaGUI.png>
-Package pdftex.def Info: FileZillaGUI.png  used on input line 314.
+Package pdftex.def Info: FileZillaGUI.png  used on input line 409.
 (pdftex.def)             Requested size: 488.42542pt x 451.68811pt.
 
-Overfull \hbox (4.72858pt too wide) in paragraph at lines 314--315
- [][] 
- []
-
-
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<WftpWireshark.png, id=129, 922.94812pt x 589.4522pt>
+<WftpWireshark.png, id=146, 922.94812pt x 589.4522pt>
 File: WftpWireshark.png Graphic file (type png)
 <use WftpWireshark.png>
-Package pdftex.def Info: WftpWireshark.png  used on input line 322.
+Package pdftex.def Info: WftpWireshark.png  used on input line 417.
 (pdftex.def)             Requested size: 507.62303pt x 324.1997pt.
 
-Overfull \hbox (23.9262pt too wide) in paragraph at lines 322--323
- [][] 
- []
-
-
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<WftpGUI.png, id=130, 609.77812pt x 565.36218pt>
+<WftpGUI.png, id=147, 609.77812pt x 565.36218pt>
 File: WftpGUI.png Graphic file (type png)
 <use WftpGUI.png>
-Package pdftex.def Info: WftpGUI.png  used on input line 330.
+Package pdftex.def Info: WftpGUI.png  used on input line 425.
 (pdftex.def)             Requested size: 487.82315pt x 452.29036pt.
-
-Overfull \hbox (4.12631pt too wide) in paragraph at lines 330--331
- [][] 
- []
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 339.
-[8pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
-has been already used, duplicate ignored
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.339 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{figure.4}) has been already used, duplicate ignored
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.339 \end{document}
-                     <./Server.png> <./ServerWireshark.png>] [9pdfTeX warning (
-ext4): destination with the same identifier (name{figure.5}) has been already u
-sed, duplicate ignored
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.339 \end{document}
-                     <./FileZilla.png>] [10pdfTeX warning (ext4): destination w
-ith the same identifier (name{figure.6}) has been already used, duplicate ignor
-ed
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.339 \end{document}
-                     <./FileZillaGUI.png>] [11pdfTeX warning (ext4): destinatio
-n with the same identifier (name{figure.7}) has been already used, duplicate ig
-nored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.339 \end{document}
-                     <./WftpWireshark.png>] [12pdfTeX warning (ext4): destinati
-on with the same identifier (name{figure.8}) has been already used, duplicate i
-gnored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.339 \end{document}
-                     <./WftpGUI.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 339.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 432.
+[8 <./Server.png> <./ServerWireshark.png>] [9 <./FileZilla.png>] [10 <./FileZil
+laGUI.png>] [11 <./WftpWireshark.png>] [12 <./WftpGUI.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 432.
  (Report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 339.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 339.
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 339.
- )
-(\end occurred when \ifx on line 331 was incomplete)
-(\end occurred when \ifx on line 323 was incomplete)
-(\end occurred when \ifx on line 315 was incomplete)
-(\end occurred when \ifx on line 307 was incomplete)
-(\end occurred when \ifx on line 299 was incomplete)
-(\end occurred when \ifx on line 291 was incomplete)
-(\end occurred when \ifx on line 274 was incomplete)
-(\end occurred when \ifx on line 119 was incomplete) 
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 432.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 432.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 432.
+ ) 
 Here is how much of TeX's memory you used:
- 8802 strings out of 493305
- 127254 string characters out of 3129802
- 317535 words of memory out of 3000000
- 12131 multiletter control sequences out of 15000+200000
- 29513 words of font info for 101 fonts, out of 3000000 for 9000
+ 8776 strings out of 493305
+ 133871 string characters out of 3129802
+ 330031 words of memory out of 3000000
+ 12134 multiletter control sequences out of 15000+200000
+ 52063 words of font info for 96 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 35i,7n,43p,1105b,433s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Users/knaro/AppData/Loc
-al/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Users/knaro/AppData/Loca
-l/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/knaro/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/U
-sers/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cms
-l10.pfb><C:/Users/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmsl8.pfb><C:/Users/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmsy10.pfb><C:/Users/knaro/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/knaro/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/knaro/AppDa
-ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/User
-s/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb>
-Output written on Report.pdf (12 pages, 525889 bytes).
+ 34i,13n,43p,1247b,396s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc
+}<C:/Users/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb><C:/Users/knaro/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmsy7.pfb><C:/Users/knaro/AppData/Local/Programs/MiKTeX 2.9/fon
+ts/type1/urw/courier/ucrr8a.pfb><C:/Users/knaro/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/urw/times/utmb8a.pfb><C:/Users/knaro/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Users/knaro/AppData/Local/Programs/
+MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Report.pdf (13 pages, 532520 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
- 268 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 312 PDF objects out of 1000 (max. 8388607)
+ 66 named destinations out of 1000 (max. 500000)
+ 305 words of extra memory for PDF output out of 10000 (max. 10000000)
 
