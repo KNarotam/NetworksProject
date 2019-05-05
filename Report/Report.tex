@@ -14,6 +14,8 @@
 \usepackage{array,longtable}
 \usepackage{makecell}
 \usepackage{bookmark}
+\usepackage{multicol}
+\usepackage{multirow}
 \pagestyle{plain}
 \def\code#1{\texttt{#1}}
 
@@ -74,15 +76,15 @@ The File Transfer Application is required to follow certain guidelines as listed
 
 \subsection{FTP Server}
 \label{sec: FTP Server}
-The FTP server was designed according to the RFC959 standards in order to ensure connection with a standard client is compatible. This allows a number of users to connect to the server through various FTP clients.
+The FTP server was designed according to the RFC959 standards in order to ensure connection with a standard client is compatible\cite{RFC959}.
 
-The server has been implemented using a number of FTP commands in accordance with RFC959 protocols. In order to facilitate the the file transfer process or processes required by the user FTP process, the server FTP implementation consists of two key components. The first of which is the server protocol interpreter (server-PI). This performs the task of "listening" on a given port number and establishes a controlled connection between the user and the server. This connection first requires authentication from the user to ensure that the communication between the server and the user is legitamate and remains secure. Once this has been achieved, FTP commands can be sent by the user and the response of the server can be sent. This model aims to govern the way in which the DTP layer is operated.
+The server has been implemented using a number of FTP commands in accordance with the RFC959 protocol. In order to facilitate the the file transfer process or processes required by the user FTP process, the server FTP implementation consists of two key components. The first of which is the server protocol interpreter (PI). This performs the task of "listening" on a given port number and establishes a controlled connection between the user and the server. This connection first requires authentication to ensure that the communication between the server and the user is legitimate. Once this has been achieved, FTP commands can be sent by the user and the response of the server can be returned. This model provides the platform on which the DTP layer is operated\cite{FTP}.
 
 The server data transfer process (DTP) establishes a communication channel with the user through which data can be transferred. This is achieved by creating a channel with the "listening" data port. This then allows the transfer and storage of various file types and instructions to take place according to the commands received by the server PI. The DTP can exist in two states: namely passive and active. Passive state simply listens and for a connection on the server's data port while active state inititates a connection between the data port and the user.
 
-Through this model of an FTP server, a number of FTP commands can be handled in order to obtain functionality and compatibility with the client FTP service. The commands implemented by the FTP server are subdivided into three categories each focusing on the implementation of a specific component of the client-server communication process. The first of these commands are known as \textbf{Access Control Commands} which allow the server to authenticate the user by requesting the specification of access control identifiers. Through these commands, user name and password information can be obtained as well as management of the directories established for that particular user. This is followed by \textbf{Transfer Parameter Commands} providing the framework through which data will be transferred. The commands involve specifying the port, file structure, mode of transfer and type of file being transferred as well as controlling the state of operation of the server DTP. Finally the \textbf{FTP Service Commands} provide the client with 
+Through this model, a number of FTP commands can be handled in order to obtain functionality and compatibility with the client FTP service. The commands implemented by the FTP server are subdivided into three categories each focusing on a specific component of the client-server communication process\cite{RFC959}. The first of these commands are known as \textbf{Access Control Commands} which allow the server to authenticate the user through access control identifiers. Once authenticated, a unique file repository can be set up with restricted access. This is followed by \textbf{Transfer Parameter Commands} providing the framework through which data will be transferred. The commands involve specifying the port, file structure, mode of transfer and type of file being transferred as well as controlling the state of operation of the server DTP. Finally the \textbf{FTP Service Commands} provide the client with upload/download capabilities between the local and remote directories.
 
-The FTP server was hosted and runs locally using the users local IP address. A server was also hosted using \textit{FileZilla}. The server also implemented multi-threading in order to facilitate multiple client connections simultaneously. This allows for concurrent data connections allowing multiple upload and download of files as. 
+%These commands served as the fundamental concepts on which the server framework was implemented. The designed FTP server was hosted and run locally using the users local IP address as well as using \textit{FileZilla}, an open source application with FTP capabilities. The server also implemented multi-threading in order to facilitate multiple client connections simultaneously. This allowed for the concurrent upload and download of files through multiple data connections. 
 
 \subsection{FTP Client}
 \label{sec: FTP Client}
@@ -110,7 +112,7 @@ Due to complexity in programming, the feature to change a file structure is not 
 \section{COMMANDS AND REPLIES}
 \label{sec: Commands and Replies}
 
-FTP replies to client commands are structured in such a way that the all file transfer requests and actions are achieved in a synchronous fashion. The replies also allow the state of the server to be known to the user at all times in order to determine the relative success of each of the requested actions. The details of each reply are made explicit to the user using a 3 digit code followed by text indicating the nature of the reply message. Each digit is is of special significance in the reply with the first digit indicating a successful, unsuccessful or incomplete response. The second digit provides indication as to the type of error that occurred with the 3rd digit providing extra clarification as to the nature of the response and what action should be taken next.
+FTP replies to client commands are structured in such a way that all file transfer requests and actions are achieved in a synchronous fashion. The details of each reply are made explicit to the user using a 3 digit code followed by text indicating the nature of the reply message. Each digit is of special significance in the reply with the first digit indicating a successful, unsuccessful or incomplete response. The second digit provides an indication as to the type of error that occurred with the 3rd digit providing extra clarification as to what action should be taken next.
 
 The state of the reply codes are grouped according to the first digit in the following way:
 \begin{tabbing}
@@ -122,17 +124,16 @@ The state of the reply codes are grouped according to the first digit in the fol
 	5yx	\> Permanent Negative Completion reply
 \end{tabbing} 
 
-The function groups which the reply codes relate to are encoded in the second digit as follows: 
-
-\begin{tabbing}
-	\hspace{4em}\=\kill
-	x0z	\> Syntax \\ 
-	x1z	\> Information\\ 
-	x2z	\> Connections\\ 
-	x3z	\> Authentication and Accounting \\ 
-	x4z	\> Unspecified as yet \\
-	x5z \> File System
-\end{tabbing} 
+%The function groups which the reply codes relate to are encoded in the second digit as follows: 
+%\begin{tabbing}
+%	\hspace{4em}\=\kill
+%	x0z	\> Syntax \\ 
+%	x1z	\> Information\\ 
+%	x2z	\> Connections\\ 
+%	x3z	\> Authentication and Accounting \\ 
+%	x4z	\> Unspecified as yet \\
+%	x5z \> File System
+%\end{tabbing} 
 
 A number of varying reply codes have been implemented according to the reply code structures given. All implemented messages and the reply codes are given in \tabref{tab:commands}. The table also contains a brief description of each reply code.
 
@@ -155,18 +156,18 @@ Since FTP communicates over a TCP/IP connection, this type of connection needs t
 
 \subsection{Server Implementation}
 \label{sec: Server Implementation}
-The FTP server was hosted locally using the user's IP address to allow FTP clients to connect to the server across a range of networks. In order to establish FTP client connections, the server makes use of a \texttt{serverListener()} function configured to "listen" across a number of different sockets. In order to allow for multiple connections from a range of clients to be handled simultaneously, each new connection was bound to a thread using the \texttt{bind} function. Each thread was initialized in passive mode and is responsible for the data transmission of a given client. A message received across the connected FTP client is decoded and authorized before being executed. Depending on the result of the command, a reply code is then encoded and sent back to the client. The reply codes provide the user with follow on information to each command being passed according to the code structure given in Section~\ref{sec: Commands and Replies}.
+The FTP server was hosted locally using the user's IP address to allow FTP clients to connect to the server across a range of networks. In order to establish FTP client connections, the server makes use of a \texttt{serverListener()} function configured to "listen" across a number of different sockets. In order to allow for multiple connections to be handled simultaneously, each new connection was bound to a thread using the \texttt{bind} function. Threads were initialized in passive mode allowing for the transmission of data when a client connection occurs. A command received from the FTP client is decoded and authorized before being executed. Depending on the result of the command, a reply code is then encoded and returned before the next command can be active. The reply codes were selected according to the code structure given in Section~\ref{sec: Commands and Replies}.
 
 \subsubsection*{Authentication:}
 A number of commands were implemented in order to control access and configuration of the file structure for each individual client. The server contains a user management system achieved through the authentication of each FTP client. \texttt(USER()) and \texttt(PASS()) allows the server to accept unique user name and passwords in order to ascertain what file repository's the user has access to. This allows each user to instantiate a file structure that is unique to their credentials. The \texttt(QUIT) command provided the client with a method of ending the current session with the wholsale changes made during the period being maintained.
 
 \subsubsection*{Server Configuration:}
 
-A range of configuration commands were used in order to facilitate client-server interaction. The server utilities the \texttt{os module} to control file and directory operations, providing cross-platform integration. \texttt{PORT} command specifies the data port number used by the client in order to create a data connection. \texttt{PASV} command was used to instatntiate passive mode with the server listening for the client connections in order to enable the data transfer between the two entities.
+A range of configuration commands were used in order to facilitate client-server interaction. The server utilities the \texttt{os module} to control file directory operations, providing cross-platform integration\cite{os}. \texttt{PORT} command specifies the data port number used by the client in order to create a data connection. \texttt{PASV} command was used to instantiate passive mode with the server listening for the client connections in order to enable the data transfer between the two entities.
 
 \subsubsection*{File Configuration:}
 
-\texttt{STRU} command allowed the client to customize the file structure within the specified repository. Due to compatibility issues when hosting the server locally, the default file structure was set to page structure (P). The server catered for a number of commands allowing the client to traverse the specified file structure. The \texttt{PWD} and \texttt{LIST} commands allowed the user to display comprehensive information pertaining to both the remote and local repositories. \texttt{CWD} allowed the client to change the path with which the files were being accessed. File transfer types were indicated using the \texttt{TYPE} command allowing the user to specify ASCII (TYPE A) or IMAGE (TYPE I) the type of file which needed to be transfered. \texttt{STOR} and \texttt{RETR} facilitated the uploading and downloading of files respectively. This was achieved through the streaming of data in specified bytes during the transmission of the given file. A ping test was created using the \texttt{NOOP} command in order to determine the rate at which a file was being transmitted. Finally, the \texttt{HELP} command was added to the server capabilities allowing the user to access the list of commands available to them.
+\texttt{STRU} command allowed the client to customize the file structure within the specified repository. Due to compatibility issues when hosting the server locally, the default file structure was set to page structure(P). The server catered for a number of commands allowing the client to traverse the specified file structure. The \texttt{PWD} and \texttt{LIST} commands allowed the user to display comprehensive information pertaining to both the remote and local repositories. \texttt{CWD} allowed the client to change the path with which the files were being accessed. File transfer types were indicated using the \texttt{TYPE} command allowing the user to specify ASCII (TYPE A) or IMAGE (TYPE I) type when transferring the file. \texttt{STOR} and \texttt{RETR} facilitated the uploading and downloading of files respectively. This was achieved through the streaming of data in specified bytes during the transmission of the given file. A ping test was created using the \texttt{NOOP} command in order to determine the rate at which a file was being transmitted. Finally, the \texttt{HELP} command was added to the server capabilities allowing the user to access the list of commands available to them.
 
 \subsection{Client Implementation}
 \label{sec: Client Implementation}
@@ -236,9 +237,8 @@ The File Transfer Application is functional and is a decent solution. As shown i
 \item The client is provided with a simple graphical interface that communicates with different FTP servers.
 \item The client is able to upload and download various files, such as: images, audio, text, video.
 \item A server that is able to handle multiple connections from various clients
-\item A server that is able to interact with cross-platform clients and deal with the relevant commands sent from each
+\item A server that is able to interact with FTP clients and effectively execute received commands
 \item A server that is able to perform authentication of client connections
-\item A server which is able to handle unique repositories for each client connection
 \item Wireshark traces indicated that the File Transfer Protocol was utilized and followed.
 \item The client and server are able to communicate with one another regardless of which host either is on, provided they are on the same network.
 \item No FTP libraries available in \code{Python} were used.
@@ -283,7 +283,7 @@ The client can be started by using the following command in the terminal:
 %
 \section{CONCLUSION}
 \label{sec: Conclusion}
-the design, implementation and testing of a File Transfer Application has been presented. The overall system was regarded as a success regardless of minor problems experienced. The minimum requirements of a File transfer Application were met and a simple user interface was created for the client. Wireshark was utilized to monitor and ensure that the correct protocol, the File Transfer Protocol, was being utilized and the correct commands were being sent to the server. The final client was tested against three different FTP servers and was proven to produce successful results. The system was analyzed and future development recommendations have been provided.
+The design, implementation and testing of a File Transfer Application has been presented. The overall system was regarded as a success regardless of minor problems experienced. The minimum requirements of a File transfer Application were met and a simple user interface was created for the client. Wireshark was utilized to monitor and ensure that the correct protocol, the File Transfer Protocol, was being utilized and the correct commands were being sent to the server. The final client was tested against three different FTP servers and was proven to produce successful results. The system was analyzed and future development recommendations have been provided.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,66 +329,47 @@ Ribak, J; \emph{Active FTP vs. Passive FTP, a Definitive Explanation}; \url{http
 \pagebreak
 \section{Implemented Commands and Reply Codes}
 \label{app: Commands}
-
 \begin{longtable}{|p{2cm}|p{7cm}|p{8cm}|}
-    \label{tab:commands} \\
 	\hline 
 	\textbf{Command} & \textbf{Description} & \textbf{Reply Code}
+	\hline 		
+	USER & User identification needed by server before providing access to file system  &  501 Syntax error in parameters or arguments. 331 User name okay, need password. \tabularnewline
 	\hline 
-		
-	USER	& User identification needed by server before providing access to file system  &  501 Syntax error in parameters or arguments. 331 User name okay, need password. \\ 
+	PASS & Authenticates user password & \makecell[l]{501 Syntax error in parameters or arguments.\\503 Bad sequence of commands. \tabularnewline 230 User logged in, proceed.} \tabularnewline 
 	\hline 
-	
-	PASS	& Authenticates user password & \makecell[l]{501 Syntax error in parameters or arguments.\\503 Bad sequence of commands. \\230 User logged in, proceed.} \\ 
-	\hline 
-	
 	CWD	& Changes working directory to new directory specified user  & \makecell[l]{550 Requested action not taken. \\File unavailable \\250 Requested file action okay, completed.} \\ 
 	\hline
-	
 	CDUP	& Changes the working directory to home directory. & 200 Command okay. \\ 
 	\hline 
-	
 	QUIT	& Terminates a user connection &  221 Service closing control connection. Goodbye\\ 
 	\hline 
-	
 	PORT	& Specifies the data port to be used during data transmission & 200 Command okay. Get Port \\ 
 	\hline 
-	
 	PASV	& Requests the DTP server listen on the specified data port & 227 Entering Passive Mode\\ 
 	\hline
-	
 	TYPE	& Specifies the file type to be retrieved or stored & \makecell[l]{200 Command okay. \\501 Syntax error in parameters or arguments.}\\ 
 	\hline  
-	
 	STRU	& Specifies the file structure to be retrieved or stored  & \makecell[l]{200 Command okay. \\502 Command not implemented.} \\ 
 	\hline 
-	
 	MODE	& Specifies data transfer modes for transmission & \makecell[l]{200 Command okay. \\502 Command not implemented. \\501 Syntax error in parameters or arguments.} \\ 
 	\hline 
-
-
 	LIST & Returns a list of the contents of a specified directory. The list contains the type of files included in the directory. &\makecell[l]{530 User not logged in. \\550 Requested action not taken. \\ File unavailable \\150 File status okay; about to open data connection. \\226 Closing data connection.\\ Requested file action successful}\\ 
-	\hline 
-
-	\hline  
+	\hline   
 	PWD	& Returns the current working directory & 257 PATHNAME created \\ 
 	\hline 
-	
 	DELE	& Deletes a file at the specified remote host location & \makecell[l]{530 Not logged in. \\550 Requested action not taken. File unavailable \\450 Requested file action not taken. File busy \\250 Requested file action okay, completed.} \\ 
 	\hline 
-	
 	RETR	& Enables the download capabilities of the specified file name &  \makecell[l]{150 File status okay; about to open data connection. \\226 Transfer complete.} \\ 
 	\hline 
-	
 	STOR	& Enables the upload capabilities of the specified file name &  \makecell[l]{530 Not logged in. \\150 File status okay; about to open data connection. \\226 Transfer completed.} \\ 
 	\hline 
-	
 	NOOP	& Gives the client ping capabilities when attempting to access the server & 200 Command okay. \\ 
 	\hline 
-	
 	HELP	& Displays a list of possible commands which can be handled by the server &  \\ 
 	\hline 
+
 	\caption{Table detailing the implemented commands and reply codes}	
+		\label{tab:commands}
 \end{longtable}
 \pagebreak
 \section{Results}
