@@ -72,16 +72,7 @@ to 50-200 words, which should concisely summarise the paper.}
 
 \subsection{FTP Server}
 \label{sec: FTP Server}
-
-The FTP server was designed according to the RFC959 standards in order to ensure connection with a standard client is compatible. This allows a number of users to connect to the server through various FTP clients.
-
-The server has been implemented using a number of FTP commands in accordance with RFC959 protocols. In order to facilitate the the file transfer process or processes required by the user FTP process, the server FTP implementation consists of two key components. The first of which is the server protocol interpreter (server-PI). This performs the task of "listening" on a given port number and establishes a controlled connection between the user and the server. This connection first requires authentication from the user to ensure that the communication between the server and the user is legitamate and remains secure. Once this has been achieved, FTP commands can be sent by the user and the response of the server can be sent. This model aims to govern the way in which the DTP layer is operated.
-
-The server data transfer process (DTP) establishes a communication channel with the user through which data can be transferred. This is achieved by creating a channel with the "listening" data port. This then allows the transfer and storage of various file types and instructions to take place according to the commands received by the server PI. The DTP can exist in two states: namely passive and active. Passive state simply listens and for a connection on the server's data port while active state inititates a connection between the data port and the user.
-
-Through this model of an FTP server, a number of FTP commands can be handled in order to obtain functionality and compatibility with the client FTP service. The commands implemented by the FTP server are subdivided into three categories each focusing on the implementation of a specific component of the client-server communication process. The first of these commands are known as \textbf{Access Control Commands} which allow the server to authenticate the user by requesting the specification of access control identifiers. Through these commands, user name and password information can be obtained as well as management of the directories established for that particular user. This is followed by \textbf{Transfer Parameter Commands} providing the framework through which data will be transferred. The commands involve specifying the port, file structure, mode of transfer and type of file being transferred as well as controlling the state of operation of the server DTP. Finally the \textbf{FTP Service Commands} provide the client with 
-
-The FTP server was hosted and runs locally using the users local IP address. A server was also hosted using \textit{FileZilla}. The server also implemented multi-threading in order to facilitate multiple client connections simultaneously. This allows for concurrent data connections allowing multiple upload and download of files as.  
+MATT
 
 \subsection{FTP Client}
 \label{sec: FTP Client}
@@ -92,31 +83,8 @@ The FTP server was hosted and runs locally using the users local IP address. A s
 \section{COMMANDS AND REPLIES}
 \label{sec: Commands and Replies}
 
-FTP replies to client commands are structured in such a way that the all file transfer requests and actions are achieved in a synchronous fashion. The replies also allow the state of the server to be known to the user at all times in order to determine the relative success of each of the requested actions. The details of each reply are made explicit to the user using a 3 digit code followed by text indicating the nature of the reply message. Each digit is is of special significance in the reply with the first digit indicating a successful, unsuccessful or incomplete response. The second digit provides indication as to the type of error that occurred with the 3rd digit providing extra clarification as to the nature of the response and what action should be taken next.
+MATT, the table of our server's code implementations
 
-The state of the reply codes are grouped according to the first digit in the following way:
-\begin{tabbing}
-	\hspace{4em}\=\kill
-	1yx	\> Positive Preliminary Reply \\ 
-	2yx	\> Positive Completion Reply\\ 
-	3yx	\> Positive Intermediate reply \\ 
-	4yx	\> Transient Negative Completion reply \\ 
-	5yx	\> Permanent Negative Completion reply
-\end{tabbing} 
-
-The function groups which the reply codes relate to are encoded in the second digit as follows: 
-
-\begin{tabbing}
-	\hspace{4em}\=\kill
-	x0z	\> Syntax \\ 
-	x1z	\> Information\\ 
-	x2z	\> Connections\\ 
-	x3z	\> Authentication and Accounting \\ 
-	x4z	\> Unspecified as yet \\
-	x5z \> File System
-\end{tabbing} 
-
-A number of varying reply codes have been implemented according to the reply code structures given. All implemented messages and the reply codes are given in \tabref{tab:commands}. The table also contains a brief description of each reply code.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,22 +95,7 @@ A number of varying reply codes have been implemented according to the reply cod
 
 \subsection{Server Implementation}
 \label{sec: Server Implementation}
-The FTP server was hosted locally using the user's IP address to allow FTP clients to connect to the server across a range of networks. In order to establish FTP client connections, the server makes use of a \texttt{serverListener()} function configured to "listen" across a number of different sockets. In order to allow for multiple connections from a range of clients to be handled simultaneously, each new connection was bound to a thread using the \texttt{bind} function. Each thread was initialized in passive mode and is responsible for the data transmission of a given client. A message received across the connected FTP client is decoded and authorized before being executed. Depending on the result of the command, a reply code is then encoded and sent back to the client. The reply codes provide the user with follow on information to each command being passed according to the code structure given in Section~\ref{sec: Commands and Replies}.
-
-\subsubsection*{Authentication:}
-A number of commands were implemented in order to control access and configuration of the file structure for each individual client. The server contains a user management system achieved through the authentication of each FTP client. \texttt(USER()) and \texttt(PASS()) allows the server to accept unique user name and passwords in order to ascertain what file repository's the user has access to. This allows each user to instantiate a file structure that is unique to their credentials. The \texttt(QUIT) command provided the client with a method of ending the current session with the wholsale changes made during the period being maintained.
-
-\subsubsection*{Server Configuration:}
-
-A range of configuration commands were used in order to facilitate client-server interaction. The server utilities the \texttt{os module} to control file and directory operations, providing cross-platform integration. \texttt{PORT} command specifies the data port number used by the client in order to create a data connection. \texttt{PASV} command was used to instatntiate passive mode with the server listening for the client connections in order to enable the data transfer between the two entities.
-
-\subsubsection*{File Configuration:}
-
-\texttt{STRU} command allowed the client to customize the file structure within the specified repository. Due to compatibility issues when hosting the server locally, the default file structure was set to page structure (P). The server catered for a number of commands allowing the client to traverse the specified file structure. The \texttt{PWD} and \texttt{LIST} commands allowed the user to display comprehensive information pertaining to both the remote and local repositories. \texttt{CWD} allowed the client to change the path with which the files were being accessed. File transfer types were indicated using the \texttt{TYPE} command allowing the user to specify ASCII (TYPE A) or IMAGE (TYPE I) the type of file which needed to be transfered. \texttt{STOR} and \texttt{RETR} facilitated the uploading and downloading of files respectively. This was achieved through the streaming of data in specified bytes during the transmission of the given file. A ping test was created using the \texttt{NOOP} command in order to determine the rate at which a file was being transmitted. Finally, the \texttt{HELP} command was added to the server capabilities allowing the user to access the list of commands available to them.
-
-% file management includes the use of \texttt{APPE}, which allows a client to store new additions to files without their previous content being overwritten. Any upload operation requires a user to be authenticated.
-
-%A custom utility was created for \texttt{LIST} function to provide the client with comprehensive information about the directory contents such as file permissions, file size and user group. The server also offers clients the ability to rename files rather than the outdated process of having to delete and upload them with a different name.
+MATT, see how Jared did this part of the report
 
 
 \subsection{Client Implementation}
@@ -177,7 +130,7 @@ A range of configuration commands were used in order to facilitate client-server
 
 \subsection{Successes}
 \label{sec: Successes}
-
+MATT talk about server success
 
 \subsection{Limitations and Problems}
 \label{sec: Limitations and Problems}
